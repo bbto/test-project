@@ -16,8 +16,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author bbto
  */
-public class AdminAuthFilter implements Filter {
-
+public class ProfessorAuthFilter implements Filter {
     protected FilterConfig config;
 
     public void init(FilterConfig config) throws ServletException {
@@ -31,7 +30,7 @@ public class AdminAuthFilter implements Filter {
                 HttpSession session = ((HttpServletRequest) request).getSession(false);
                 if (session != null) {
                     User current_user = (User) session.getAttribute(User.SESSION_ATTRIBUTE);
-                    if ((current_user != null) && current_user.isAdmin()) {
+                    if ((current_user != null) && current_user.isProfessor()) {
                         authorized = true;
                     }
                 }
@@ -74,4 +73,5 @@ public class AdminAuthFilter implements Filter {
                 "Sorry, access is not allowed.\n" +
                 "</BODY></HTML>");
     }
+
 }

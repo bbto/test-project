@@ -1,5 +1,6 @@
 package com.sres.persistence;
 
+import com.sres.util.Util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -45,7 +46,11 @@ public class DatabaseManager {
         driver = (String) env.lookup("driver");
         database = (String) env.lookup("database");
         username = (String) env.lookup("username");
-        password = (String) env.lookup("password");
+        password = (String) env.lookup("dbpassword");
+        System.err.println(driver);
+        System.err.println(database);
+        System.err.println(username);
+        System.err.println(password);
     }
 
     private void connect() {
@@ -114,5 +119,16 @@ public class DatabaseManager {
             ex.printStackTrace(System.err);
         }
         return false;
+    }
+
+    public String getEncriptedPassword(String password) {
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultset = statement.executeQuery("SELECT password("+Util.quote(password)+") FROM dual");
+            if(resultset.next()) return resultset.getString(1);
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.err);
+        }
+        return null;
     }
 }

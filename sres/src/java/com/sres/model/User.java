@@ -11,6 +11,7 @@ import java.util.ArrayList;
  * @author bbto
  */
 public class User {
+    public static final String SESSION_ATTRIBUTE = "currentLoggedInUserToken";
 
     private static final int ADMIN = 0;
     private static final int PROFESSOR = 1;
@@ -58,14 +59,7 @@ public class User {
     private void setPassword(String password) {
         DatabaseManager db = DatabaseManager.getInstance();
         if (db != null) {
-            try {
-                ResultSet rs = db.getQuery("SELECT password(" + Util.quote(password) + ") FROM dual");
-                if (rs.next()) {
-                    this.password = rs.getString(1);
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace(System.err);
-            }
+            this.password = db.getEncriptedPassword(password);
         }
         db.close();
     }
@@ -77,14 +71,7 @@ public class User {
     public void setPassword_confirmation(String password_confirmation) {
         DatabaseManager db = DatabaseManager.getInstance();
         if (db != null) {
-            try {
-                ResultSet rs = db.getQuery("SELECT password(" + Util.quote(password_confirmation) + ") FROM dual");
-                if (rs.next()) {
-                    this.password_confirmation = rs.getString(1);
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace(System.err);
-            }
+            this.password_confirmation = db.getEncriptedPassword(password_confirmation);
         }
         db.close();
     }
@@ -105,12 +92,39 @@ public class User {
         this.lastname = lastname;
     }
 
-    public int getRole() {
+    private int getRole() {
         return role;
     }
 
     public void setRole(int role) {
         this.role = role;
+    }
+
+    public boolean isAdmin() {
+        return role == ADMIN;
+    }
+
+    public boolean isProfessor() {
+        return role == PROFESSOR;
+    }
+
+    public boolean isStudent() {
+        return role == STUDENT;
+    }
+
+    public static String getPassword(User user) {
+        String password = null;
+        DatabaseManager db = DatabaseManager.getInstance();
+        if (db != null) {
+            try {
+                ResultSet rs = db.getQuery("SELECT password FROM users WHERE id="+user.getId());
+                if (rs.next()) password = rs.getString(1);
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+        db.close();
+        return password;
     }
 
     public static ArrayList<User> all() {

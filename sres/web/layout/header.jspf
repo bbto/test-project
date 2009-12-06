@@ -1,0 +1,51 @@
+<%@ page contentType="text/html" pageEncoding="UTF-8" import="com.sres.model.User" %>
+<% User current_user = (User)session.getAttribute(User.SESSION_ATTRIBUTE); %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>Everyday Seriesby Free CSS Templates</title>
+        <meta name="keywords" content="" />
+        <meta name="Everyday Series" content="" />
+        <link href="../stylesheets/default.css" rel="stylesheet" type="text/css" media="screen" />
+    </head>
+    <body>
+        <!-- start header -->
+        <div id="header">
+            <div id="logo">
+                <h1><a href="#"><span>CUC </span>SRES</a></h1>
+                <p>La red social de la cuc</p>
+            </div>
+        </div>
+        <!-- end header -->
+        <div id="wrapper">
+            <!-- start page -->
+            <div id="page">
+                <div id="page-bg">
+                    <div id="sidebar1" class="sidebar">
+                        <ul>
+                            <li>
+                                <h2>Menu</h2>
+                                <jsp:scriptlet>if(current_user.isAdmin()) {</jsp:scriptlet>
+                                <ul>
+                                    <li><a href="competitions.jsp">Competencias</a></li>
+                                    <li><a href="professors.jsp">Profesores</a></li>
+                                    <li><a href="students.jsp">Estudiantes</a></li>
+                                </ul>
+                                <jsp:scriptlet>} else if(current_user.isProfessor()) {</jsp:scriptlet>
+                                <ul>
+                                    <li><a href="competitions.jsp">Competencias</a></li>
+                                    <li><a href="professors.jsp">Profesores</a></li>
+                                    <li><a href="students.jsp">Estudiantes</a></li>
+                                </ul>
+                                <jsp:scriptlet>} else if(current_user.isStudent()) {</jsp:scriptlet>
+                                <ul>
+                                    <li><a href="competitions.jsp">Competencias</a></li>
+                                    <li><a href="professors.jsp">Profesores</a></li>
+                                    <li><a href="students.jsp">Estudiantes</a></li>
+                                </ul>
+                                <jsp:scriptlet>}</jsp:scriptlet>
+                            </li>
+                        </ul>
+                    </div>

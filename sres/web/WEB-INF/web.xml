@@ -14,17 +14,41 @@
         <filter-name>AdminAuthFilter</filter-name>
         <filter-class>com.sres.filter.AdminAuthFilter</filter-class>
         </filter>
+    <filter>
+        <filter-name>ProfessorAuthFilter</filter-name>
+        <filter-class>com.sres.filter.ProfessorAuthFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>StudentAuthFilter</filter-name>
+        <filter-class>com.sres.filter.StudentAuthFilter</filter-class>
+    </filter>
     <filter-mapping>
         <filter-name>AdminAuthFilter</filter-name>
         <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>ProfessorAuthFilter</filter-name>
+        <url-pattern>/professor/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>StudentAuthFilter</filter-name>
+        <url-pattern>/student/*</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>AuthServlet</servlet-name>
         <servlet-class>com.sres.servlet.AuthServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddCompetitionServlet</servlet-name>
+        <servlet-class>com.sres.servlet.AddCompetitionServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AuthServlet</servlet-name>
         <url-pattern>/auth</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCompetitionServlet</servlet-name>
+        <url-pattern>/admin/addCompetition</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -44,17 +68,18 @@
         <description>Database connection URL</description>
         <env-entry-name>database</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
-        <env-entry-value>http://localhost:3306/sres</env-entry-value>
+        <env-entry-value>jdbc:mysql://localhost:3306/sres</env-entry-value>
     </env-entry>
     <env-entry>
         <description>MySQL Database username</description>
         <env-entry-name>username</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
-        <env-entry-value>root</env-entry-value>
+        <env-entry-value>sres</env-entry-value>
     </env-entry>
     <env-entry>
         <description>MySQL database user password</description>
-        <env-entry-name>password</env-entry-name>
+        <env-entry-name>dbpassword</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
-    </env-entry>
+        <env-entry-value>default</env-entry-value>
+        </env-entry>
     </web-app>
