@@ -44,8 +44,8 @@ public class Activity {
                     competition.setSubject_id(rs.getInt("subject_id"));
                     competition.setType(rs.getInt("type"));
                     competition.setLink(rs.getString("link"));
-                    competition.setScrib_id(rs.getInt("scrib_id"));
-                    competition.setScrib_key(rs.getString("scrib_key"));
+                    competition.setScrib_id(rs.getInt("scribd_id"));
+                    competition.setScrib_key(rs.getString("scribd_key"));
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace(System.err);
@@ -68,8 +68,8 @@ public class Activity {
                     competition.setSubject_id(rs.getInt("subject_id"));
                     competition.setType(rs.getInt("type"));
                     competition.setLink(rs.getString("link"));
-                    competition.setScrib_id(rs.getInt("scrib_id"));
-                    competition.setScrib_key(rs.getString("scrib_key"));
+                    competition.setScrib_id(rs.getInt("scribd_id"));
+                    competition.setScrib_key(rs.getString("scribd_key"));
                     result.add(competition);
                 }
             } catch (SQLException ex) {
@@ -92,7 +92,7 @@ public class Activity {
                     fields.add(Util.quote(link));
                     fields.add(String.valueOf(scrib_id));
                     fields.add(Util.quote(scrib_key));
-                    if (db.insert("activities", "(subject_id,type,link,scrib_id,scrib_key)", "(" + Util.concat(fields, ",") + ")")) {
+                    if (db.insert("activities", "(subject_id,type,link,scribd_id,scribd_key)", "(" + Util.concat(fields, ",") + ")")) {
                         return true;
                     }
                 } else {
@@ -100,8 +100,8 @@ public class Activity {
                     fields.add("subject_id=" + String.valueOf(subject_id));
                     fields.add("type="+String.valueOf(type));
                     fields.add("link="+Util.quote(link));
-                    fields.add("scrib_id="+String.valueOf(scrib_id));
-                    fields.add("scrib_key="+Util.quote(scrib_key));
+                    fields.add("scribd_id="+String.valueOf(scrib_id));
+                    fields.add("scribd_key="+Util.quote(scrib_key));
                     if (db.update("activities", Util.concat(fields, ","), "id=" + id)) {
                         return true;
                     }
