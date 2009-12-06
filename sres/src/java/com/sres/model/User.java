@@ -213,7 +213,7 @@ public class User {
     public boolean save() {
         DatabaseManager db = DatabaseManager.getInstance();
         if (db != null) {
-            if(validate()) {
+            if (validate()) {
                 if (newRecord) {
                     ArrayList fields = new ArrayList();
                     fields.add(Util.quote(email));

@@ -8,6 +8,7 @@ import java.util.Iterator;
  * @author bbto
  */
 public class Util {
+
     public static String quote(String value) {
         return "'" + value + "'";
     }
@@ -27,8 +28,8 @@ public class Util {
     public static String concat(ArrayList values, String separator) {
         String result = "";
         Iterator i = values.iterator();
-        while(i.hasNext()) {
-            result = result.concat(separator.concat((String)i.next()));
+        while (i.hasNext()) {
+            result = result.concat(separator.concat((String) i.next()));
         }
         return result.substring(separator.length());
     }
