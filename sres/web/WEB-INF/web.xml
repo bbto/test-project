@@ -18,6 +18,14 @@
         <filter-name>AdminAuthFilter</filter-name>
         <url-pattern>/admin/*</url-pattern>
     </filter-mapping>
+    <servlet>
+        <servlet-name>AuthServlet</servlet-name>
+        <servlet-class>com.sres.servlet.AuthServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AuthServlet</servlet-name>
+        <url-pattern>/auth</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
