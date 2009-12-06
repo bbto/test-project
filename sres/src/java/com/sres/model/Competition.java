@@ -70,13 +70,13 @@ public class Competition {
                 if (newRecord) {
                     ArrayList fields = new ArrayList();
                     fields.add(Util.quote(name));                    
-                    if (db.insert("users", "(email,password,firstname,lastname,role)", "(" + Util.concat(fields, ",") + ")")) {
+                    if (db.insert("competitions", "(name)", "(" + Util.concat(fields, ",") + ")")) {
                         return true;
                     }
                 } else {
                     ArrayList fields = new ArrayList();
-                    fields.add("email=" + Util.quote(name));                    
-                    if (db.update("users", Util.concat(fields, ","), "id=" + id)) {
+                    fields.add("name=" + Util.quote(name));
+                    if (db.update("competitions", Util.concat(fields, ","), "id=" + id)) {
                         return true;
                     }
                 }
@@ -90,7 +90,7 @@ public class Competition {
         DatabaseManager db = DatabaseManager.getInstance();
         if (db != null) {
             if (!newRecord) {
-                if (db.destroy("users", "id=" + id)) {
+                if (db.destroy("competitions", "id=" + id)) {
                     return true;
                 }
             }
