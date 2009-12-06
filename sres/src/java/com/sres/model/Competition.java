@@ -1,6 +1,7 @@
 package com.sres.model;
 
 import com.sres.persistence.DatabaseManager;
+import com.sres.util.Util;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,16 +12,20 @@ import java.util.ArrayList;
  */
 public class Competition {
 
-
     private int id;
     private String name;
+    private boolean newRecord = false;
 
-
+    public Competition(){
+        newRecord=true;
+        id=0;
+        name=null;
+    }
 
     public static Competition find_by_id(String id) {
         Competition competition = null;
         DatabaseManager db = DatabaseManager.getInstance();
-        if(db!=null) {
+        if (db != null) {
             try {
                 ResultSet rs = db.getQuery("SELECT * FROM competitions WHERE id=" + id);
                 if (rs.next()) {
@@ -37,10 +42,10 @@ public class Competition {
     }
 
     public static ArrayList<Competition> all() {
-        ArrayList<Competition> result = new ArrayList();
+        ArrayList<Competition> result = new ArrayList<Competition>();
         DatabaseManager db = DatabaseManager.getInstance();
         Competition competition = null;
-        if(db!=null) {
+        if (db != null) {
             try {
                 ResultSet rs = db.getQuery("SELECT * FROM competitions");
                 while (rs.next()) {
@@ -58,12 +63,44 @@ public class Competition {
         return result;
     }
 
-    public void save() {
-
+    public boolean save() {
+        DatabaseManager db = DatabaseManager.getInstance();
+        if (db != null) {
+            if (validate()) {
+                if (newRecord) {
+                    ArrayList fields = new ArrayList();
+                    fields.add(Util.quote(name));                    
+                    if (db.insert("users", "(email,password,firstname,lastname,role)", "(" + Util.concat(fields, ",") + ")")) {
+                        return true;
+                    }
+                } else {
+                    ArrayList fields = new ArrayList();
+                    fields.add("email=" + Util.quote(name));                    
+                    if (db.update("users", Util.concat(fields, ","), "id=" + id)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        db.close();
+        return false;
     }
 
-    public void destroy() {
+    public boolean destroy() {
+        DatabaseManager db = DatabaseManager.getInstance();
+        if (db != null) {
+            if (!newRecord) {
+                if (db.destroy("users", "id=" + id)) {
+                    return true;
+                }
+            }
+        }
+        db.close();
+        return false;
+    }
 
+    private boolean validate() {
+        return true;
     }
 
     /**
