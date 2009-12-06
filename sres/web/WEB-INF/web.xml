@@ -42,6 +42,14 @@
         <servlet-name>AddCompetitionServlet</servlet-name>
         <servlet-class>com.sres.servlet.AddCompetitionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RemoveCompetitionServlet</servlet-name>
+        <servlet-class>com.sres.servlet.RemoveCompetitionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddProfessor</servlet-name>
+        <servlet-class>com.sres.servlet.AddProfessor</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AuthServlet</servlet-name>
         <url-pattern>/auth</url-pattern>
@@ -49,6 +57,14 @@
     <servlet-mapping>
         <servlet-name>AddCompetitionServlet</servlet-name>
         <url-pattern>/admin/addCompetition</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveCompetitionServlet</servlet-name>
+        <url-pattern>/admin/removeCompetition</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddProfessor</servlet-name>
+        <url-pattern>/admin/addProfessor</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

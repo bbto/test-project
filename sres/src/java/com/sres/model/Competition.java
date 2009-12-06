@@ -16,8 +16,8 @@ public class Competition {
     private String name;
     private boolean newRecord = false;
 
-    public Competition(){
-        newRecord=true;
+    public Competition(boolean newRecord){
+        this.newRecord=newRecord;
         id=0;
         name=null;
     }
@@ -29,7 +29,7 @@ public class Competition {
             try {
                 ResultSet rs = db.getQuery("SELECT * FROM competitions WHERE id=" + id);
                 if (rs.next()) {
-                    competition = new Competition();
+                    competition = new Competition(false);
                     competition.setId(rs.getInt("id"));
                     competition.setName(rs.getString("name"));
                 }
@@ -49,7 +49,7 @@ public class Competition {
             try {
                 ResultSet rs = db.getQuery("SELECT * FROM competitions");
                 while (rs.next()) {
-                    competition = new Competition();
+                    competition = new Competition(false);
                     competition.setId(rs.getInt("id"));
                     competition.setName(rs.getString("name"));
                     result.add(competition);
