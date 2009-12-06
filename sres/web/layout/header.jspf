@@ -35,9 +35,9 @@
                                 </ul>
                                 <jsp:scriptlet>} else if(current_user.isProfessor()) {</jsp:scriptlet>
                                 <ul>
-                                    <li><a href="competitions.jsp">Competencias</a></li>
-                                    <li><a href="professors.jsp">Profesores</a></li>
-                                    <li><a href="students.jsp">Estudiantes</a></li>
+                                    <li><a href="index.jsp">Inicio</a></li>
+                                    <li><a href="subjects.jsp">Redes</a></li>
+                                    <li><a href="bulletin.jsp">Crear boletin</a></li>
                                 </ul>
                                 <jsp:scriptlet>} else if(current_user.isStudent()) {</jsp:scriptlet>
                                 <ul>

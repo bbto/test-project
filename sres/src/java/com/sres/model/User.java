@@ -25,8 +25,8 @@ public class User {
     private int role;
     private boolean newRecord = false;
 
-    public User() {
-        newRecord = true;
+    public User(boolean newRecord) {
+        this.newRecord = newRecord;
         id = 0;
         email = null;
         password = null;
@@ -134,13 +134,36 @@ public class User {
             try {
                 ResultSet rs = db.getQuery("SELECT * FROM users");
                 while (rs.next()) {
-                    User user = new User();
+                    User user = new User(false);
                     user.setId(rs.getInt("id"));
                     user.setEmail(rs.getString("email"));
                     user.setFirstname(rs.getString("firstname"));
                     user.setLastname(rs.getString("lastname"));
                     user.setRole(rs.getInt("role"));
                     user.newRecord = false;
+                    users.add(user);
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+        db.close();
+        return users;
+    }
+
+    public static ArrayList<User> all_students() {
+        ArrayList<User> users = new ArrayList<User>();
+        DatabaseManager db = DatabaseManager.getInstance();
+        if (db != null) {
+            try {
+                ResultSet rs = db.getQuery("SELECT * FROM users WHERE role="+STUDENT);
+                while (rs.next()) {
+                    User user = new User(false);
+                    user.setId(rs.getInt("id"));
+                    user.setEmail(rs.getString("email"));
+                    user.setFirstname(rs.getString("firstname"));
+                    user.setLastname(rs.getString("lastname"));
+                    user.setRole(rs.getInt("role"));
                     users.add(user);
                 }
             } catch (SQLException ex) {
@@ -158,7 +181,7 @@ public class User {
             try {
                 ResultSet rs = db.getQuery("SELECT * FROM users WHERE id=" + id);
                 if (rs.next()) {
-                    user = new User();
+                    user = new User(false);
                     user.setId(rs.getInt("id"));
                     user.setEmail(rs.getString("email"));
                     user.setFirstname(rs.getString("firstname"));
@@ -181,7 +204,7 @@ public class User {
             try {
                 ResultSet rs = db.getQuery("SELECT * FROM users WHERE email=" + Util.quote(email));
                 if (rs.next()) {
-                    user = new User();
+                    user = new User(false);
                     user.setId(rs.getInt("id"));
                     user.setEmail(rs.getString("email"));
                     user.setFirstname(rs.getString("firstname"));
@@ -204,7 +227,7 @@ public class User {
             try {
                 ResultSet rs = db.getQuery("SELECT * FROM users WHERE firstname like " + Util.has(firstname));
                 if (rs.next()) {
-                    user = new User();
+                    user = new User(false);
                     user.setId(rs.getInt("id"));
                     user.setEmail(rs.getString("email"));
                     user.setFirstname(rs.getString("firstname"));
