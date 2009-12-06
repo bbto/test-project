@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.naming.Context;
 import javax.naming.NamingException;
 
@@ -18,7 +20,6 @@ public class DatabaseManager {
     private static String database;
     private static String username;
     private static String password;
-
     private Connection connection;
 
     private DatabaseManager() {
@@ -82,5 +83,38 @@ public class DatabaseManager {
             ex.printStackTrace(System.err);
         }
         return null;
+    }
+
+    public boolean insert(String table, String fields, String values) {
+        try {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("INSERT INTO " + table + " " + fields + " VALUES " + values);
+            return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.err);
+        }
+        return false;
+    }
+
+    public boolean update(String table, String fields, String condition) {
+        try {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("UPDATE " + table + " SET " + fields + " WHERE " + condition);
+            return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.err);
+        }
+        return false;
+    }
+
+    public boolean destroy(String table, String condition) {
+        try {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("DELETE FROM" + table + " WHERE " + condition);
+            return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.err);
+        }
+        return false;
     }
 }
