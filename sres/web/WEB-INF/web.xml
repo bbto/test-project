@@ -8,4 +8,27 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
         </welcome-file-list>
+    <env-entry>
+        <description>MySQL JDBC Driver</description>
+        <env-entry-name>driver</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>com.mysql.jdbc.Driver</env-entry-value>
+    </env-entry>
+    <env-entry>
+        <description>Database connection URL</description>
+        <env-entry-name>database</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>http://localhost:3306/sres</env-entry-value>
+    </env-entry>
+    <env-entry>
+        <description>MySQL Database username</description>
+        <env-entry-name>username</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>root</env-entry-value>
+    </env-entry>
+    <env-entry>
+        <description>MySQL database user password</description>
+        <env-entry-name>password</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+    </env-entry>
     </web-app>
