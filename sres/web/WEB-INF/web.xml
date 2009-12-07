@@ -62,6 +62,10 @@
         <servlet-name>AddStudentServlet</servlet-name>
         <servlet-class>com.sres.servlet.AddStudentServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>com.sres.servlet.LogoutServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AuthServlet</servlet-name>
         <url-pattern>/auth</url-pattern>
@@ -89,6 +93,10 @@
     <servlet-mapping>
         <servlet-name>AddStudentServlet</servlet-name>
         <url-pattern>/admin/addStudent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
