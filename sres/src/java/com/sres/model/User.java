@@ -140,6 +140,30 @@ public class User {
         return competitions;
     }
 
+    public ArrayList<Subject> getProfessorSubjects(){
+        ArrayList<Subject> subjects = new ArrayList<Subject>();
+        Subject subject = null;
+        DatabaseManager db = DatabaseManager.getInstance();
+        if (db != null) {
+            try {
+                ResultSet rs = db.getQuery("SELECT * FROM subjects Where professor_id="+id);
+                while (rs.next()) {
+                    subject = new Subject(false);
+                    subject.setId(rs.getInt("id"));
+                    subject.setCompetence_id(rs.getInt("competition_id"));
+                    subject.setProfessor_id(rs.getInt("professor_id"));
+                    subject.setCreation_date(rs.getDate("creation_date"));
+                    subjects.add(subject);
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+
+        }
+        db.close();
+        return subjects;
+    }
+
     public ArrayList<StudentSubject> getCompetitionsOnCourse(){
         ArrayList<StudentSubject> competitions = new ArrayList<StudentSubject>();
          StudentSubject student_subject = null;

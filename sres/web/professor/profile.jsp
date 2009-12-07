@@ -6,12 +6,12 @@
         <h1 class="title"><a><%=current_user.getName()%></a></h1>
         <p class="byline">&nbsp;</p>
         <div class="entry">
-            <h2>Competencias Aprovadas</h2>
+            <h3>Competencias dirigidas</h3>
             <ol>
-                <% ArrayList<StudentSubject> studentsSubjects = current_user.getCompetitions();
-            for (StudentSubject act : studentsSubjects) {
+                <% ArrayList<Subject> studentsSubjects = current_user.getProfessorSubjects();
+            for (Subject act : studentsSubjects) {
                 %>
-                <li><%=act.getSubjectName()%> - <%=act.getFinal_grade() %></li>
+                <li><%=act.getCompetenceName()%> </li>
                 <%}%>
             </ol>
         </div>

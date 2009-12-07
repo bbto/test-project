@@ -34,11 +34,13 @@ public class Subject {
             try {
                 ResultSet rs = db.getQuery("SELECT * FROM subjects WHERE id=" + id);
                 if (rs.next()) {
+
                     subject = new Subject(false);
                     subject.setId(rs.getInt("id"));
                     subject.setCompetence_id(rs.getInt("competition_id"));
                     subject.setProfessor_id(rs.getInt("professor_id"));
                     subject.setCreation_date(rs.getDate("creation_date"));
+
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace(System.err);
@@ -47,6 +49,8 @@ public class Subject {
         db.close();
         return subject;
     }
+
+    
 
     public ArrayList<Activity> getActivities() {
 
@@ -83,6 +87,7 @@ public class Subject {
             try {
                 ResultSet rs = db.getQuery("SELECT * FROM subjects");
                 while (rs.next()) {
+
                     subject = new Subject(false);
                     subject.setId(rs.getInt("id"));
                     subject.setCompetence_id(rs.getInt("competition_id"));
