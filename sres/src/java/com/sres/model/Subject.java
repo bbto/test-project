@@ -19,8 +19,8 @@ public class Subject {
     private Date creation_date;
     private boolean newRecord = false;
 
-    public Subject() {
-        newRecord = true;
+    public Subject(boolean newRecord) {
+        this.newRecord = newRecord;
         id = 0;
         competence_id = 0;
         professor_id = 0;
@@ -34,7 +34,7 @@ public class Subject {
             try {
                 ResultSet rs = db.getQuery("SELECT * FROM subjects WHERE id=" + id);
                 if (rs.next()) {
-                    competition = new Subject();
+                    competition = new Subject(false);
                     competition.setId(rs.getInt("id"));
                     competition.setCompetence_id(rs.getInt("competence_id"));
                     competition.setProfessor_id(rs.getInt("professor_id"));
@@ -83,7 +83,7 @@ public class Subject {
             try {
                 ResultSet rs = db.getQuery("SELECT * FROM subjects");
                 while (rs.next()) {
-                    competition = new Subject();
+                    competition = new Subject(false);
                     competition.setId(rs.getInt("id"));
                     competition.setCompetence_id(rs.getInt("competition_id"));
                     competition.setProfessor_id(rs.getInt("professor_id"));
