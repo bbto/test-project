@@ -10,7 +10,7 @@
                 <form action="select_students.jsp" method="post">
                     <tr>
                         <td><label for="name">Competencia</label></td>
-                        <td>
+                        <td colspan="3">
                             <jsp:include page="competitions_select.jsp"></jsp:include>
                         </td>
                         <td><input type="submit" name="submit" value="Agregar" /></td>
@@ -19,7 +19,7 @@
                 <tr>
                     <th>Nombre</th>
                     <th>Fecha</th>
-                    <th>Accion</th>
+                    <th align="center" colspan="3">Accion</th>
                 </tr>
                 <%
                     ArrayList<Subject> subjects = Subject.all();
@@ -29,6 +29,18 @@
                 <tr>
                     <td><%=Competition.find_by_id(""+subject.getCompetence_id()).getName()%></td>
                     <td><%=subject.getCreation_date()%></td>
+                    <td>
+                        <form action="activities.jsp" method="post">
+                            <input type="hidden" name="id" value="<%=subject.getId()%>" />
+                            <input type="submit" name="submit" value="Actividades" />
+                        </form>
+                    </td>
+                    <td>
+                        <form action="students.jsp" method="post">
+                            <input type="hidden" name="id" value="<%=subject.getId()%>" />
+                            <input type="submit" name="submit" value="Estudiantes" />
+                        </form>
+                    </td>
                     <td>
                         <form action="removeSubject" method="post">
                             <input type="hidden" name="id" value="<%=subject.getId()%>" />
