@@ -33,12 +33,13 @@ public class StudentSubject {
 
     public String getSubjectName() {
         String name = "";
-        StudentSubject student_subject = null;
+        Subject subject = null;
         DatabaseManager db = DatabaseManager.getInstance();
         if (db != null) {
             try {
-                ResultSet rs = db.getQuery("SELECT name FROM subjects s, competitions c WHERE s.competition_id = c.id and s.id=" + subject_id);
+                ResultSet rs = db.getQuery("SELECT c.name FROM subjects s, competitions c WHERE s.competition_id = c.id and s.id=" + subject_id);
                 if (rs.next()) {
+
                     name = rs.getString("name");
                 }
             } catch (SQLException ex) {
@@ -50,6 +51,29 @@ public class StudentSubject {
 
         return name;
     }
+
+    public Subject getSubject() {        
+        Subject subject = null;
+        DatabaseManager db = DatabaseManager.getInstance();
+        if (db != null) {
+            try {
+                ResultSet rs = db.getQuery("SELECT * FROM subjects s WHERE  s.id=" + subject_id);
+                if (rs.next()) {
+                    subject = new Subject();
+                    subject.setId(rs.getInt("id"));
+                    subject.setCompetence_id(rs.getInt("id"));
+                    subject.setProfessor_id(rs.getInt("professor_id"));
+                    subject.setCreation_date(rs.getDate("creation_date"));
+
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+        db.close();
+        return subject;
+    }
+
 
     public static StudentSubject find_by_id(
             String id) {

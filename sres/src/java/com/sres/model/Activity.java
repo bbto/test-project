@@ -18,6 +18,7 @@ public class Activity {
     private String link;
     private int scrib_id;
     private String scrib_key;
+    private String name;
 
 
     private boolean newRecord = false;
@@ -30,6 +31,7 @@ public class Activity {
         link = null;
         scrib_id = 0;
         scrib_key = null;
+        name = null;
     }
 
     public static Activity find_by_id(String id) {
@@ -46,6 +48,7 @@ public class Activity {
                     competition.setLink(rs.getString("link"));
                     competition.setScrib_id(rs.getInt("scribd_id"));
                     competition.setScrib_key(rs.getString("scribd_key"));
+                    competition.setName(rs.getString("name"));
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace(System.err);
@@ -70,6 +73,7 @@ public class Activity {
                     competition.setLink(rs.getString("link"));
                     competition.setScrib_id(rs.getInt("scribd_id"));
                     competition.setScrib_key(rs.getString("scribd_key"));
+                    competition.setName(rs.getString("name"));
                     result.add(competition);
                 }
             } catch (SQLException ex) {
@@ -92,7 +96,8 @@ public class Activity {
                     fields.add(Util.quote(link));
                     fields.add(String.valueOf(scrib_id));
                     fields.add(Util.quote(scrib_key));
-                    if (db.insert("activities", "(subject_id,type,link,scribd_id,scribd_key)", "(" + Util.concat(fields, ",") + ")")) {
+                    fields.add(Util.quote(name));
+                    if (db.insert("activities", "(subject_id,type,link,scribd_id,scribd_key,name)", "(" + Util.concat(fields, ",") + ")")) {
                         return true;
                     }
                 } else {
@@ -102,6 +107,7 @@ public class Activity {
                     fields.add("link="+Util.quote(link));
                     fields.add("scribd_id="+String.valueOf(scrib_id));
                     fields.add("scribd_key="+Util.quote(scrib_key));
+                    fields.add("name="+Util.quote(name));
                     if (db.update("activities", Util.concat(fields, ","), "id=" + id)) {
                         return true;
                     }
@@ -227,6 +233,20 @@ public class Activity {
      */
     public void setScrib_key(String scrib_key) {
         this.scrib_key = scrib_key;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
 
