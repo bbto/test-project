@@ -150,7 +150,7 @@ public class User {
                 while (rs.next()) {
                     subject = new Subject(false);
                     subject.setId(rs.getInt("id"));
-                    subject.setCompetence_id(rs.getInt("competence_id"));
+                    subject.setCompetence_id(rs.getInt("competition_id"));
                     subject.setProfessor_id(rs.getInt("professor_id"));
                     subject.setCreation_date(rs.getDate("creation_date"));
                     subjects.add(subject);

@@ -24,8 +24,8 @@ public class Rates {
     private String scribd_key;
     private boolean newRecord = false;
 
-    public Rates() {
-        newRecord = true;
+    public Rates(boolean newRecord) {
+        this.newRecord = newRecord;
         id = 0;
         student_subject_id = 0;
         cuantification = 0.0;
@@ -45,7 +45,7 @@ public class Rates {
             try {
                 ResultSet rs = db.getQuery("SELECT * FROM rates WHERE id=" + id);
                 if (rs.next()) {
-                    rate = new Rates();
+                    rate = new Rates(false);
                     rate.setId(rs.getInt("id"));
                     rate.setStudent_subject_id(rs.getInt("student_subject_id"));
                     rate.setCuantification(rs.getDouble("cuantification"));
@@ -73,7 +73,7 @@ public class Rates {
             try {
                 ResultSet rs = db.getQuery("SELECT * FROM rates");
                 while (rs.next()) {
-                    rate = new Rates();
+                    rate = new Rates(false);
                     rate.setId(rs.getInt("id"));
                     rate.setStudent_subject_id(rs.getInt("student_subject_id"));
                     rate.setCuantification(rs.getDouble("cuantification"));

@@ -28,46 +28,48 @@ public class Subject {
     }
 
     public static Subject find_by_id(String id) {
-        Subject competition = null;
+        Subject subject = null;
         DatabaseManager db = DatabaseManager.getInstance();
         if (db != null) {
             try {
                 ResultSet rs = db.getQuery("SELECT * FROM subjects WHERE id=" + id);
                 if (rs.next()) {
-                    competition = new Subject(false);
-                    competition.setId(rs.getInt("id"));
-                    competition.setCompetence_id(rs.getInt("competence_id"));
-                    competition.setProfessor_id(rs.getInt("professor_id"));
-                    competition.setCreation_date(rs.getDate("creation_date"));
+
+                    subject = new Subject(false);
+                    subject.setId(rs.getInt("id"));
+                    subject.setCompetence_id(rs.getInt("competition_id"));
+                    subject.setProfessor_id(rs.getInt("professor_id"));
+                    subject.setCreation_date(rs.getDate("creation_date"));
+
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace(System.err);
             }
         }
         db.close();
-        return competition;
+        return subject;
     }
 
     
 
     public ArrayList<Activity> getActivities() {
-        
+
         ArrayList<Activity> result = new ArrayList<Activity>();
         DatabaseManager db = DatabaseManager.getInstance();
-        Activity competition = null;
+        Activity activity = null;
         if (db != null) {
             try {
                 ResultSet rs = db.getQuery("SELECT * FROM activities s WHERE  s.subject_id=" + id);
                 while (rs.next()) {
-                    competition = new Activity();
-                    competition.setId(rs.getInt("id"));
-                    competition.setSubject_id(rs.getInt("subject_id"));
-                    competition.setType(rs.getInt("type"));
-                    competition.setLink(rs.getString("link"));
-                    competition.setScrib_id(rs.getInt("scribd_id"));
-                    competition.setScrib_key(rs.getString("scribd_key"));
-                    competition.setName(rs.getString("name"));
-                    result.add(competition);
+                    activity = new Activity(false);
+                    activity.setId(rs.getInt("id"));
+                    activity.setSubject_id(rs.getInt("subject_id"));
+                    activity.setType(rs.getInt("type"));
+                    activity.setLink(rs.getString("link"));
+                    activity.setScrib_id(rs.getInt("scribd_id"));
+                    activity.setScrib_key(rs.getString("scribd_key"));
+                    activity.setName(rs.getString("name"));
+                    result.add(activity);
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace(System.err);
@@ -80,17 +82,18 @@ public class Subject {
     public static ArrayList<Subject> all() {
         ArrayList<Subject> result = new ArrayList<Subject>();
         DatabaseManager db = DatabaseManager.getInstance();
-        Subject competition = null;
+        Subject subject = null;
         if (db != null) {
             try {
                 ResultSet rs = db.getQuery("SELECT * FROM subjects");
                 while (rs.next()) {
-                    competition = new Subject(false);
-                    competition.setId(rs.getInt("id"));
-                    competition.setCompetence_id(rs.getInt("competition_id"));
-                    competition.setProfessor_id(rs.getInt("professor_id"));
-                    competition.setCreation_date(rs.getDate("creation_date"));
-                    result.add(competition);
+
+                    subject = new Subject(false);
+                    subject.setId(rs.getInt("id"));
+                    subject.setCompetence_id(rs.getInt("competition_id"));
+                    subject.setProfessor_id(rs.getInt("professor_id"));
+                    subject.setCreation_date(rs.getDate("creation_date"));
+                    result.add(subject);
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace(System.err);
@@ -199,5 +202,23 @@ public class Subject {
      */
     public void setCreation_date(Date creation_date) {
         this.creation_date = creation_date;
+    }
+
+    public String getCompetenceName() {
+        String name = null;
+        DatabaseManager db = DatabaseManager.getInstance();
+        if (db != null) {
+            try {
+                ResultSet rs = db.getQuery("SELECT name FROM competitions WHERE id=" + competence_id);
+                if (rs.next()) {
+                    name = rs.getString(1);
+                }
+                rs.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+        db.close();
+        return name;
     }
 }
