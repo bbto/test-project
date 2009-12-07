@@ -3,7 +3,7 @@
 <!-- start content -->
 <div id="content">
     <div class="post">
-        <h1 class="title"><a>Competencias existentes</a></h1>
+        <h1 class="title"><a>Profesores existentes</a></h1>
         <p class="byline">&nbsp;</p>
         <div class="entry">
             <table width="100%">

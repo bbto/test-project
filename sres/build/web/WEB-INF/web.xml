@@ -13,7 +13,7 @@
         <description>Allows access to admin role users</description>
         <filter-name>AdminAuthFilter</filter-name>
         <filter-class>com.sres.filter.AdminAuthFilter</filter-class>
-        </filter>
+    </filter>
     <filter>
         <filter-name>ProfessorAuthFilter</filter-name>
         <filter-class>com.sres.filter.ProfessorAuthFilter</filter-class>
@@ -54,6 +54,14 @@
         <servlet-name>AddSubjectServlet</servlet-name>
         <servlet-class>com.sres.servlet.AddSubjectServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RemoveUserServlet</servlet-name>
+        <servlet-class>com.sres.servlet.RemoveUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddStudentServlet</servlet-name>
+        <servlet-class>com.sres.servlet.AddStudentServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AuthServlet</servlet-name>
         <url-pattern>/auth</url-pattern>
@@ -74,6 +82,14 @@
         <servlet-name>AddSubjectServlet</servlet-name>
         <url-pattern>/professor/addSubject</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveUserServlet</servlet-name>
+        <url-pattern>/admin/removeUser</url-pattern>
+        </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddStudentServlet</servlet-name>
+        <url-pattern>/admin/addStudent</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -82,8 +98,8 @@
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
         <welcome-file>index.jsp</welcome-file>
-        </welcome-file-list>
-    <env-entry>
+    </welcome-file-list>
+    <error-page><error-code>404</error-code><location>/error.jsp</location></error-page><env-entry>
         <description>MySQL JDBC Driver</description>
         <env-entry-name>driver</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
@@ -106,5 +122,5 @@
         <env-entry-name>dbpassword</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
         <env-entry-value>default</env-entry-value>
-        </env-entry>
-    </web-app>
+    </env-entry>
+</web-app>
