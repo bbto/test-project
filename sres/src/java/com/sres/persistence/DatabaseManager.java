@@ -113,7 +113,7 @@ public class DatabaseManager {
     public boolean destroy(String table, String condition) {
         try {
             Statement statement = connection.createStatement();
-            statement.executeUpdate("DELETE FROM" + table + " WHERE " + condition);
+            statement.executeUpdate("DELETE FROM " + table + " WHERE " + condition);
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace(System.err);

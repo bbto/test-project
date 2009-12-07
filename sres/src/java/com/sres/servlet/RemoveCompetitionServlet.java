@@ -4,10 +4,10 @@
  */
 package com.sres.servlet;
 
+import com.sres.model.Competition;
+import com.sres.persistence.DatabaseManager;
 import java.io.IOException;
 import java.io.PrintWriter;
-import com.sres.persistence.DatabaseManager;
-import com.sres.model.Competition;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author bbto
  */
-public class AddCompetitionServlet extends HttpServlet {
+public class RemoveCompetitionServlet extends HttpServlet {
 
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -29,19 +29,16 @@ public class AddCompetitionServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String name = request.getParameter("name");
-        DatabaseManager db = DatabaseManager.getInstance();
-        if (db != null) {
-            Competition competition = new Competition(true);
-            competition.setName(name);
-            if (competition.save()) {
+        String id = request.getParameter("id");
+       
+            Competition c = Competition.find_by_id(id);
+            System.err.println(c.getName());
+           if(c.destroy()){
                 response.sendRedirect(request.getContextPath() + "/admin/");
-            } else {
+           }else{
                 response.sendRedirect(request.getContextPath() + "/error.jsp");
-            }
-        } else {
-            response.sendRedirect(request.getContextPath() + "/error.jsp");
-        }
+           }
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

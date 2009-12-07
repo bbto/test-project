@@ -29,7 +29,7 @@
                                 <h2>Menu</h2>
                                 <jsp:scriptlet>if(current_user.isAdmin()) {</jsp:scriptlet>
                                 <ul>
-                                    <li><a href="competitions.jsp">Competencias</a></li>
+                                    <li><a href="index.jsp">Competencias</a></li>
                                     <li><a href="professors.jsp">Profesores</a></li>
                                     <li><a href="students.jsp">Estudiantes</a></li>
                                 </ul>
