@@ -11,7 +11,7 @@
                 <% ArrayList<Subject> studentsSubjects = current_user.getProfessorSubjects();
             for (Subject act : studentsSubjects) {
                 %>
-                <li><%=act.getName()%> </li>
+                <li><%=act.getCompetenceName()%> </li>
                 <%}%>
             </ol>
         </div>

@@ -59,7 +59,7 @@ public class StudentSubject {
             try {
                 ResultSet rs = db.getQuery("SELECT * FROM subjects s WHERE  s.id=" + subject_id);
                 if (rs.next()) {
-                    subject = new Subject();
+                    subject = new Subject(false);
                     subject.setId(rs.getInt("id"));
                     subject.setCompetence_id(rs.getInt("id"));
                     subject.setProfessor_id(rs.getInt("professor_id"));

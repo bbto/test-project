@@ -48,6 +48,8 @@ public class Subject {
         return competition;
     }
 
+    
+
     public ArrayList<Activity> getActivities() {
         
         ArrayList<Activity> result = new ArrayList<Activity>();
