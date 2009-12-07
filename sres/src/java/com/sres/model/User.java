@@ -11,8 +11,8 @@ import java.util.ArrayList;
  * @author bbto
  */
 public class User {
-    public static final String SESSION_ATTRIBUTE = "currentLoggedInUserToken";
 
+    public static final String SESSION_ATTRIBUTE = "currentLoggedInUserToken";
     private static final int ADMIN = 0;
     private static final int PROFESSOR = 1;
     private static final int STUDENT = 2;
@@ -117,8 +117,10 @@ public class User {
         DatabaseManager db = DatabaseManager.getInstance();
         if (db != null) {
             try {
-                ResultSet rs = db.getQuery("SELECT password FROM users WHERE id="+user.getId());
-                if (rs.next()) password = rs.getString(1);
+                ResultSet rs = db.getQuery("SELECT password FROM users WHERE id=" + user.getId());
+                if (rs.next()) {
+                    password = rs.getString(1);
+                }
             } catch (SQLException ex) {
                 ex.printStackTrace(System.err);
             }
@@ -180,7 +182,7 @@ public class User {
         DatabaseManager db = DatabaseManager.getInstance();
         if (db != null) {
             try {
-                ResultSet rs = db.getQuery("SELECT * FROM users WHERE role="+STUDENT);
+                ResultSet rs = db.getQuery("SELECT * FROM users WHERE role=" + STUDENT);
                 while (rs.next()) {
                     User user = new User(false);
                     user.setId(rs.getInt("id"));
@@ -242,6 +244,26 @@ public class User {
         }
         db.close();
         return user;
+    }
+
+    public  ArrayList<StudentSubject> getStudentsSubjects() {
+        ArrayList<StudentSubject> ss = new ArrayList<StudentSubject>();
+        DatabaseManager db = DatabaseManager.getInstance();
+        if (db != null) {
+            try {
+                ResultSet rs = db.getQuery("SELECT * FROM student_subjects WHERE student_id=" + this.id);
+                while (rs.next()) {
+                    StudentSubject studentsubject = new StudentSubject();
+                    studentsubject.setId(rs.getInt("id"));
+                    studentsubject.setSubject_id(rs.getInt("subject_id"));
+                    studentsubject.setUser_id(rs.getInt("student_id"));
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+        db.close();
+        return ss;
     }
 
     public static User find_by_firstname(String firstname) {

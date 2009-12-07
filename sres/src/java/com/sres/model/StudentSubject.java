@@ -27,6 +27,26 @@ public class StudentSubject {
         final_grade = 0.0;
     }
 
+    public String getSubjectName() {
+        String name = "";
+        StudentSubject student_subject = null;
+        DatabaseManager db = DatabaseManager.getInstance();
+        if (db != null) {
+            try {
+                ResultSet rs = db.getQuery("SELECT name FROM subjects s, competition c WHERE s.competition_id = c.id and s.id=" + subject_id);
+                if (rs.next()) {
+                    name = rs.getString("id");
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+
+        }
+        db.close();
+
+        return name;
+    }
+
     public static StudentSubject find_by_id(
             String id) {
         StudentSubject student_subject = null;
@@ -40,7 +60,7 @@ public class StudentSubject {
                     student_subject.setSubject_id(rs.getInt("subject_id"));
                     student_subject.setUser_id(rs.getInt("user_id"));
                     student_subject.setFinal_grade(rs.getDouble("final_grade"));
-                    
+
                 }
 
             } catch (SQLException ex) {
