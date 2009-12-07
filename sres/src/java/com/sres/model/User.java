@@ -116,6 +116,54 @@ public class User {
         return role == STUDENT;
     }
 
+    public ArrayList<StudentSubject> getCompetitions(){
+        ArrayList<StudentSubject> competitions = new ArrayList<StudentSubject>();
+         StudentSubject student_subject = null;
+         DatabaseManager db = DatabaseManager.getInstance();
+        if (db != null) {
+            try {
+                ResultSet rs = db.getQuery("SELECT * FROM student_subjects Where final_grade>=3.0 and student_id="+id);
+                while (rs.next()) {
+                    student_subject = new StudentSubject(false);
+                    student_subject.setId(rs.getInt("id"));
+                    student_subject.setSubject_id(rs.getInt("subject_id"));
+                    student_subject.setUser_id(rs.getInt("student_id"));
+                    student_subject.setFinal_grade(rs.getDouble("final_grade"));
+                    competitions.add(student_subject);
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+
+        }
+        db.close();
+        return competitions;
+    }
+
+    public ArrayList<StudentSubject> getCompetitionsOnCourse(){
+        ArrayList<StudentSubject> competitions = new ArrayList<StudentSubject>();
+         StudentSubject student_subject = null;
+         DatabaseManager db = DatabaseManager.getInstance();
+        if (db != null) {
+            try {
+                ResultSet rs = db.getQuery("SELECT * FROM student_subjects Where final_grade=0.0 and student_id="+id);
+                while (rs.next()) {
+                    student_subject = new StudentSubject(false);
+                    student_subject.setId(rs.getInt("id"));
+                    student_subject.setSubject_id(rs.getInt("subject_id"));
+                    student_subject.setUser_id(rs.getInt("student_id"));
+                    student_subject.setFinal_grade(rs.getDouble("final_grade"));
+                    competitions.add(student_subject);
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+
+        }
+        db.close();
+        return competitions;
+    }
+
     public static String getPassword(User user) {
         String password = null;
         DatabaseManager db = DatabaseManager.getInstance();
