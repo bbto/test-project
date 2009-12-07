@@ -48,6 +48,33 @@ public class Subject {
         return competition;
     }
 
+    public ArrayList<Activity> getActivities() {
+        
+        ArrayList<Activity> result = new ArrayList<Activity>();
+        DatabaseManager db = DatabaseManager.getInstance();
+        Activity competition = null;
+        if (db != null) {
+            try {
+                ResultSet rs = db.getQuery("SELECT * FROM activities s WHERE  s.subject_id=" + id);
+                while (rs.next()) {
+                    competition = new Activity();
+                    competition.setId(rs.getInt("id"));
+                    competition.setSubject_id(rs.getInt("subject_id"));
+                    competition.setType(rs.getInt("type"));
+                    competition.setLink(rs.getString("link"));
+                    competition.setScrib_id(rs.getInt("scribd_id"));
+                    competition.setScrib_key(rs.getString("scribd_key"));
+                    competition.setName(rs.getString("name"));
+                    result.add(competition);
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+        db.close();
+        return result;
+    }
+
     public static ArrayList<Subject> all() {
         ArrayList<Subject> result = new ArrayList<Subject>();
         DatabaseManager db = DatabaseManager.getInstance();
