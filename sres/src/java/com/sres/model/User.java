@@ -80,6 +80,10 @@ public class User {
         return firstname;
     }
 
+    public String getName() {
+        return firstname + " " + lastname;
+    }
+
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
@@ -257,6 +261,7 @@ public class User {
                     studentsubject.setId(rs.getInt("id"));
                     studentsubject.setSubject_id(rs.getInt("subject_id"));
                     studentsubject.setUser_id(rs.getInt("student_id"));
+                    ss.add(studentsubject);
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace(System.err);

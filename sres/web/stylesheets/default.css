@@ -71,6 +71,10 @@ img.right {
 }
 
 /* Header */
+#log_in{
+    float:right;
+    margin:10px;
+}
 
 #logo {
     width: 940px;

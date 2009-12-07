@@ -3,7 +3,7 @@
 <!-- start content -->
 <div id="content">
     <div class="post">
-        <h1 class="title"><a>Competencias existentes</a></h1>
+        <h1 class="title"><a>Listado de Actividades por competencias de <%=current_user.getFirstname()%></a></h1>
         <p class="byline">&nbsp;</p>
         <div class="entry">
             <ul>
@@ -16,6 +16,7 @@
                     <%=stud.getSubjectName()%>
                 </li>
                 <%}%>
+                <li><%=ss.size()%></li>
                 </ul>
         </div>
     </div>

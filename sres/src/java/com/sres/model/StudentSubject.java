@@ -37,9 +37,9 @@ public class StudentSubject {
         DatabaseManager db = DatabaseManager.getInstance();
         if (db != null) {
             try {
-                ResultSet rs = db.getQuery("SELECT name FROM subjects s, competition c WHERE s.competition_id = c.id and s.id=" + subject_id);
+                ResultSet rs = db.getQuery("SELECT name FROM subjects s, competitions c WHERE s.competition_id = c.id and s.id=" + subject_id);
                 if (rs.next()) {
-                    name = rs.getString("id");
+                    name = rs.getString("name");
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace(System.err);
@@ -75,6 +75,7 @@ public class StudentSubject {
         db.close();
         return student_subject;
     }
+    
 
     public static ArrayList<StudentSubject> all() {
         ArrayList<StudentSubject> result = new ArrayList<StudentSubject>();
