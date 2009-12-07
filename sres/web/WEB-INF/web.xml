@@ -13,7 +13,7 @@
         <description>Allows access to admin role users</description>
         <filter-name>AdminAuthFilter</filter-name>
         <filter-class>com.sres.filter.AdminAuthFilter</filter-class>
-        </filter>
+    </filter>
     <filter>
         <filter-name>ProfessorAuthFilter</filter-name>
         <filter-class>com.sres.filter.ProfessorAuthFilter</filter-class>
@@ -51,6 +51,10 @@
         <servlet-class>com.sres.servlet.AddProfessor</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AddSubjectServlet</servlet-name>
+        <servlet-class>com.sres.servlet.AddSubjectServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>RemoveUserServlet</servlet-name>
         <servlet-class>com.sres.servlet.RemoveUserServlet</servlet-class>
     </servlet>
@@ -75,9 +79,13 @@
         <url-pattern>/admin/addProfessor</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>AddSubjectServlet</servlet-name>
+        <url-pattern>/professor/addSubject</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>RemoveUserServlet</servlet-name>
         <url-pattern>/admin/removeUser</url-pattern>
-    </servlet-mapping>
+        </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddStudentServlet</servlet-name>
         <url-pattern>/admin/addStudent</url-pattern>
@@ -88,10 +96,10 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
         <welcome-file>login.jsp</welcome-file>
-        </welcome-file-list>
-    <env-entry>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    <error-page><error-code>404</error-code><location>/error.jsp</location></error-page><env-entry>
         <description>MySQL JDBC Driver</description>
         <env-entry-name>driver</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
@@ -114,5 +122,5 @@
         <env-entry-name>dbpassword</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
         <env-entry-value>default</env-entry-value>
-        </env-entry>
-    </web-app>
+    </env-entry>
+</web-app>

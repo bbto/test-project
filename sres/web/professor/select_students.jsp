@@ -9,7 +9,8 @@
         <p class="byline">&nbsp;</p>
         <div class="entry">
             <form action="addSubject" method="post">
-                <input type="hidden" name="competition" value="<%=competition.getName()%>" />
+                <input type="hidden" name="professor" value="<%=current_user.getId()%>" />
+                <input type="hidden" name="competition" value="<%=competition.getId()%>" />
                 <ul class="checks">
                     <%
                     ArrayList<User> students = User.all_students();
@@ -17,7 +18,7 @@
                         User student = students.get(i);
                     %>
                         <li>
-                            <input id="student_<%=student.getId()%>" type="checkbox" name="students" />
+                            <input id="student_<%=student.getId()%>" type="checkbox" name="students" value="<%=student.getId()%>" />
                             <label for="student_<%=student.getId()%>"><%=(student.getFirstname() + " " + student.getLastname())%></label>
                         </li>
                     <%}%>

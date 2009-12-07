@@ -131,4 +131,31 @@ public class DatabaseManager {
         }
         return null;
     }
+
+    public boolean execute(String ddlQuery) {
+        try {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(ddlQuery);
+            return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.err);
+        }
+        return false;
+    }
+
+    public int insertAndReturnId(String table, String fields, String values) {
+        try {
+            Statement statement = connection.createStatement();
+            System.err.println("INSERT INTO " + table + " " + fields + " VALUES " + values);
+            statement.executeUpdate("INSERT INTO " + table + " " + fields + " VALUES " + values);
+            int id = 0;
+            ResultSet rs = statement.getGeneratedKeys();
+            if (rs.next()) id = rs.getInt(1);
+            rs.close();
+            return id;
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.err);
+        }
+        return 0;
+    }
 }

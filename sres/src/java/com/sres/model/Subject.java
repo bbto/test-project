@@ -58,7 +58,7 @@ public class Subject {
                 while (rs.next()) {
                     competition = new Subject();
                     competition.setId(rs.getInt("id"));
-                    competition.setCompetence_id(rs.getInt("competence_id"));
+                    competition.setCompetence_id(rs.getInt("competition_id"));
                     competition.setProfessor_id(rs.getInt("professor_id"));
                     competition.setCreation_date(rs.getDate("creation_date"));
                     result.add(competition);
@@ -81,7 +81,7 @@ public class Subject {
                     fields.add(String.valueOf(competence_id));
                     fields.add(String.valueOf(professor_id));
                     fields.add(Util.quote(creation_date.toString()));
-                    if (db.insert("subjects", "(competence_id,professor_id,creation_date)", "(" + Util.concat(fields, ",") + ")")) {
+                    if (db.insert("subjects", "(competition_id,professor_id,creation_date)", "(" + Util.concat(fields, ",") + ")")) {
                         return true;
                     }
                 } else {

@@ -253,7 +253,7 @@ public class User {
             try {
                 ResultSet rs = db.getQuery("SELECT * FROM student_subjects WHERE student_id=" + this.id);
                 while (rs.next()) {
-                    StudentSubject studentsubject = new StudentSubject();
+                    StudentSubject studentsubject = new StudentSubject(false);
                     studentsubject.setId(rs.getInt("id"));
                     studentsubject.setSubject_id(rs.getInt("subject_id"));
                     studentsubject.setUser_id(rs.getInt("student_id"));

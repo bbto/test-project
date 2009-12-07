@@ -18,13 +18,17 @@ public class StudentSubject {
     private Double final_grade;
     private boolean newRecord = false;
 
-    public StudentSubject() {
-        newRecord = true;
+    public StudentSubject(boolean newRecord) {
+        this.newRecord = newRecord;
         id = 0;
 
         subject_id = 0;
         user_id = 0;
         final_grade = 0.0;
+    }
+
+    StudentSubject() {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 
     public String getSubjectName() {
@@ -55,7 +59,7 @@ public class StudentSubject {
             try {
                 ResultSet rs = db.getQuery("SELECT * FROM student_subjects WHERE id=" + id);
                 if (rs.next()) {
-                    student_subject = new StudentSubject();
+                    student_subject = new StudentSubject(false);
                     student_subject.setId(rs.getInt("id"));
                     student_subject.setSubject_id(rs.getInt("subject_id"));
                     student_subject.setUser_id(rs.getInt("user_id"));
@@ -80,7 +84,7 @@ public class StudentSubject {
             try {
                 ResultSet rs = db.getQuery("SELECT * FROM student_subjects");
                 while (rs.next()) {
-                    student_subject = new StudentSubject();
+                    student_subject = new StudentSubject(false);
                     student_subject.setId(rs.getInt("id"));
                     student_subject.setSubject_id(rs.getInt("subject_id"));
                     student_subject.setUser_id(rs.getInt("user_id"));
@@ -107,7 +111,7 @@ public class StudentSubject {
                     fields.add(String.valueOf(subject_id));
                     fields.add(String.valueOf(user_id));
                     fields.add(String.valueOf(final_grade));
-                    if (db.insert("student_subjects", "(subject_id,user_id,final_grade)", "(" + Util.concat(fields, ",") + ")")) {
+                    if (db.insert("student_subjects", "(subject_id,student_id,final_grade)", "(" + Util.concat(fields, ",") + ")")) {
                         return true;
                     }
 
