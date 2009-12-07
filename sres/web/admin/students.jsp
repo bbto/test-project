@@ -3,12 +3,12 @@
 <!-- start content -->
 <div id="content">
     <div class="post">
-        <h1 class="title"><a>Profesores existentes</a></h1>
+        <h1 class="title"><a>Estudiantes existentes</a></h1>
         <p class="byline">&nbsp;</p>
         <div class="entry">
             <table width="100%">
                 
-                <form action="addProfessor" method="post">
+                <form action="addStudent" method="post">
                     <tr>
                         <td><label for="firstname">Nombre</label></td>
                         <td><input type="text" name="firstname" /></td>
@@ -37,7 +37,7 @@
                 </tr>
                 </form>
                 <%
-                    ArrayList<User> users = User.all_professors();
+                    ArrayList<User> users = User.all_students();
                     for(int i=0; i<users.size(); i++) {
                         User user = users.get(i);
                 %>
