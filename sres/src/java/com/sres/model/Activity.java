@@ -19,12 +19,13 @@ public class Activity {
     private int scrib_id;
     private String scrib_key;
     private String name;
+    private String description;
 
 
     private boolean newRecord = false;
 
-    public Activity() {
-        newRecord = true;
+    public Activity(boolean newRecord) {
+        this.newRecord = newRecord;
         id = 0;
         subject_id = 0;
         type = 0;
@@ -32,49 +33,52 @@ public class Activity {
         scrib_id = 0;
         scrib_key = null;
         name = null;
+        description = null;
     }
 
     public static Activity find_by_id(String id) {
-        Activity competition = null;
+        Activity activity = null;
         DatabaseManager db = DatabaseManager.getInstance();
         if (db != null) {
             try {
                 ResultSet rs = db.getQuery("SELECT * FROM activities WHERE id=" + id);
                 if (rs.next()) {
-                    competition = new Activity();
-                    competition.setId(rs.getInt("id"));
-                    competition.setSubject_id(rs.getInt("subject_id"));
-                    competition.setType(rs.getInt("type"));
-                    competition.setLink(rs.getString("link"));
-                    competition.setScrib_id(rs.getInt("scribd_id"));
-                    competition.setScrib_key(rs.getString("scribd_key"));
-                    competition.setName(rs.getString("name"));
+                    activity = new Activity(false);
+                    activity.setId(rs.getInt("id"));
+                    activity.setSubject_id(rs.getInt("subject_id"));
+                    activity.setType(rs.getInt("type"));
+                    activity.setLink(rs.getString("link"));
+                    activity.setScrib_id(rs.getInt("scribd_id"));
+                    activity.setScrib_key(rs.getString("scribd_key"));
+                    activity.setName(rs.getString("name"));
+                    activity.setDescription(rs.getString("description"));
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace(System.err);
             }
         }
         db.close();
-        return competition;
+        return activity;
     }
 
     public static ArrayList<Activity> all() {
         ArrayList<Activity> result = new ArrayList<Activity>();
         DatabaseManager db = DatabaseManager.getInstance();
-        Activity competition = null;
+        Activity activity = null;
         if (db != null) {
             try {
                 ResultSet rs = db.getQuery("SELECT * FROM activities");
                 while (rs.next()) {
-                    competition = new Activity();
-                    competition.setId(rs.getInt("id"));
-                    competition.setSubject_id(rs.getInt("subject_id"));
-                    competition.setType(rs.getInt("type"));
-                    competition.setLink(rs.getString("link"));
-                    competition.setScrib_id(rs.getInt("scribd_id"));
-                    competition.setScrib_key(rs.getString("scribd_key"));
-                    competition.setName(rs.getString("name"));
-                    result.add(competition);
+                    activity = new Activity(false);
+                    activity.setId(rs.getInt("id"));
+                    activity.setSubject_id(rs.getInt("subject_id"));
+                    activity.setType(rs.getInt("type"));
+                    activity.setLink(rs.getString("link"));
+                    activity.setScrib_id(rs.getInt("scribd_id"));
+                    activity.setScrib_key(rs.getString("scribd_key"));
+                    activity.setName(rs.getString("name"));
+                    activity.setDescription(rs.getString("description"));
+                    result.add(activity);
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace(System.err);
@@ -97,7 +101,8 @@ public class Activity {
                     fields.add(String.valueOf(scrib_id));
                     fields.add(Util.quote(scrib_key));
                     fields.add(Util.quote(name));
-                    if (db.insert("activities", "(subject_id,type,link,scribd_id,scribd_key,name)", "(" + Util.concat(fields, ",") + ")")) {
+                    fields.add(Util.quote(description));
+                    if (db.insert("activities", "(subject_id,type,link,scribd_id,scribd_key,name,description)", "(" + Util.concat(fields, ",") + ")")) {
                         return true;
                     }
                 } else {
@@ -108,6 +113,7 @@ public class Activity {
                     fields.add("scribd_id="+String.valueOf(scrib_id));
                     fields.add("scribd_key="+Util.quote(scrib_key));
                     fields.add("name="+Util.quote(name));
+                    fields.add("description="+Util.quote(description));
                     if (db.update("activities", Util.concat(fields, ","), "id=" + id)) {
                         return true;
                     }
@@ -247,6 +253,20 @@ public class Activity {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 

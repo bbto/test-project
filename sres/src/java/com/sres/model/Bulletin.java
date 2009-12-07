@@ -17,46 +17,46 @@ public class Bulletin {
     private String context;
     private boolean newRecord = false;
 
-    public Bulletin() {
-        newRecord = true;
+    public Bulletin(boolean newRecord) {
+        this.newRecord = newRecord;
         id = 0;
         subject_id = 0;
         context = null;
     }
 
     public static Bulletin find_by_id(String id) {
-        Bulletin competition = null;
+        Bulletin bulletin = null;
         DatabaseManager db = DatabaseManager.getInstance();
         if (db != null) {
             try {
                 ResultSet rs = db.getQuery("SELECT * FROM bulletins WHERE id=" + id);
                 if (rs.next()) {
-                    competition = new Bulletin();
-                    competition.setId(rs.getInt("id"));
-                    competition.setSubject_id(rs.getInt("subject_id"));
-                    competition.setContext(rs.getString("context"));
+                    bulletin = new Bulletin(false);
+                    bulletin.setId(rs.getInt("id"));
+                    bulletin.setSubject_id(rs.getInt("subject_id"));
+                    bulletin.setContext(rs.getString("context"));
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace(System.err);
             }
         }
         db.close();
-        return competition;
+        return bulletin;
     }
 
     public static ArrayList<Bulletin> all() {
         ArrayList<Bulletin> result = new ArrayList<Bulletin>();
         DatabaseManager db = DatabaseManager.getInstance();
-        Bulletin competition = null;
+        Bulletin bulletin = null;
         if (db != null) {
             try {
                 ResultSet rs = db.getQuery("SELECT * FROM bulletins");
                 while (rs.next()) {
-                    competition = new Bulletin();
-                    competition.setId(rs.getInt("id"));
-                    competition.setSubject_id(rs.getInt("subject_id"));
-                    competition.setContext(rs.getString("context"));
-                    result.add(competition);
+                    bulletin = new Bulletin(false);
+                    bulletin.setId(rs.getInt("id"));
+                    bulletin.setSubject_id(rs.getInt("subject_id"));
+                    bulletin.setContext(rs.getString("context"));
+                    result.add(bulletin);
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace(System.err);
