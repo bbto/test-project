@@ -37,7 +37,7 @@ public class AddActivityServlet extends HttpServlet {
         String document = request.getParameter("document");
         DatabaseManager db = DatabaseManager.getInstance();
         if (db != null) {
-            User user = new User(true);
+            /*User user = new User(true);
             user.setFirstname(name);
             user.setEmail(email);
             user.setLastname(lastname);
@@ -47,7 +47,7 @@ public class AddActivityServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/admin/professors.jsp");
             } else {
                 response.sendRedirect(request.getContextPath() + "/error.jsp");
-            }
+            }*/
         } else {
             response.sendRedirect(request.getContextPath() + "/error.jsp");
         }

@@ -86,7 +86,7 @@ public class StudentSubject {
                     student_subject = new StudentSubject(false);
                     student_subject.setId(rs.getInt("id"));
                     student_subject.setSubject_id(rs.getInt("subject_id"));
-                    student_subject.setUser_id(rs.getInt("user_id"));
+                    student_subject.setUser_id(rs.getInt("student_id"));
                     student_subject.setFinal_grade(rs.getDouble("final_grade"));
 
                 }
@@ -112,7 +112,7 @@ public class StudentSubject {
                     student_subject = new StudentSubject(false);
                     student_subject.setId(rs.getInt("id"));
                     student_subject.setSubject_id(rs.getInt("subject_id"));
-                    student_subject.setUser_id(rs.getInt("user_id"));
+                    student_subject.setUser_id(rs.getInt("student_id"));
                     student_subject.setFinal_grade(rs.getDouble("final_grade"));
                     result.add(student_subject);
                 }

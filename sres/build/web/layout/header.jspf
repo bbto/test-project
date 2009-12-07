@@ -17,7 +17,13 @@
                 <p>La red social de la cuc</p>
 
                 <div id="log_in">
+                    <jsp:scriptlet>if (current_user.isAdmin()) {</jsp:scriptlet>
                     <span><b>Welcome:</b> <%=current_user.getName()%></span> <a href="/sres/logout">logout</a>
+                    <jsp:scriptlet>} else if (current_user.isProfessor()) {</jsp:scriptlet>
+                    <span><b>Welcome:</b> <a href="/sres/professor/profile.jsp"><%=current_user.getName()%></a></span>, <a href="/sres/logout">logout</a>
+                    <jsp:scriptlet>} else if (current_user.isStudent()) {</jsp:scriptlet>
+                    <span><b>Welcome:</b> <a href="/sres/student/profile.jsp"><%=current_user.getName()%></a></span>, <a href="/sres/logout">logout</a>
+                    <jsp:scriptlet>}</jsp:scriptlet>
                 </div>
             </div>
         </div>
@@ -44,10 +50,8 @@
                                 </ul>
                                 <jsp:scriptlet>} else if (current_user.isStudent()) {</jsp:scriptlet>
                                 <ul>
-                                    <li><a href="competitions.jsp">Competencias</a></li>
-                                    <li><a href="professors.jsp">Profesores</a></li>
-                                    <li><a href="students.jsp">Estudiantes</a></li>
-                                </ul>
+                                    <li><a href="index.jsp">Actividades</a></li>
+                                </ul>        
                                 <jsp:scriptlet>}</jsp:scriptlet>
                             </li>
                         </ul>
