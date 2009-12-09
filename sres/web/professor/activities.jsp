@@ -10,6 +10,7 @@
         <div class="entry">
             <table width="100%">
                 <form action="addActivity" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="subject_id" value="<%=subject.getId()%>" />
                     <tr>
                         <td colspan="3">
                             <table width="100%">

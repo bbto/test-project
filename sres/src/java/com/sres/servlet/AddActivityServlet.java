@@ -4,13 +4,14 @@
  */
 package com.sres.servlet;
 
-import com.sres.persistence.DatabaseManager;
+import com.sres.model.Activity;
 import com.sres.util.Scribd;
 import java.io.File;
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +28,13 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  */
 public class AddActivityServlet extends HttpServlet {
 
-    /** 
+    private String subject;
+    private String name;
+    private String description;
+    private String type;
+    private String link;
+
+    /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
@@ -37,71 +44,70 @@ public class AddActivityServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
-        String type = request.getParameter("type");
-        String link = request.getParameter("link");
-        String document = request.getParameter("document");
 
+        File[] files = uploadAttachedFiles(request);
+
+        System.out.println(subject);
         System.out.println(name);
         System.out.println(description);
         System.out.println(type);
         System.out.println(link);
 
-        File[] files = uploadAttachedFiles(request);
-        if(files!=null) {
-            uploadToScribd(files[0]);
-        }
+        Activity activity = new Activity(true);
+        activity.setSubject_id(Integer.parseInt(subject));
+        activity.setName(name);
+        activity.setDescription(description);
+        activity.setType(Integer.parseInt(type));
 
-        /*<%@ page import="java.util.List" %>
-        <%@ page import="java.util.Iterator" %>
-        <%@ page import="java.io.File" %>
-        <%@ page import="org.apache.commons.fileupload.servlet.ServletFileUpload"%>
-        <%@ page import="org.apache.commons.fileupload.disk.DiskFileItemFactory"%>
-        <%@ page import="org.apache.commons.fileupload.*"%>
-        <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-        <center><table border="2">
-        <tr><td><h1>Your files  uploaded </h1></td></tr>
-        <%*/
-        /*%>
-        </table>
-        </center>*/
-
-
-
-        DatabaseManager db = DatabaseManager.getInstance();
-        if (db != null) {
-            /*User user = new User(true);
-            user.setFirstname(name);
-            user.setEmail(email);
-            user.setLastname(lastname);
-            user.setPassword(password);
-            user.setRole(1);
-            if (user.save()) {
-            response.sendRedirect(request.getContextPath() + "/admin/professors.jsp");
-            } else {
-            response.sendRedirect(request.getContextPath() + "/error.jsp");
-            }*/
+        if (type.equals("1")) {
+            if (files != null) {
+                String params[] = uploadToScribd(files[0]);
+                if (params != null) {
+                    activity.setScrib_id(Integer.parseInt(params[0]));
+                    activity.setScrib_key(params[1]);
+                    if (activity.save()) {
+                        request.setAttribute("id", subject);
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("activities.jsp");
+                        dispatcher.forward(request, response);
+                        //response.sendRedirect(request.getContextPath() + "/professors/activities.jsp");
+                        return;
+                    }
+                }
+            }
         } else {
-            response.sendRedirect(request.getContextPath() + "/error.jsp");
+            activity.setLink(link);
+            if (activity.save()) {
+                request.setAttribute("id", subject);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("activities.jsp");
+                dispatcher.forward(request, response);
+                //response.sendRedirect(request.getContextPath() + "/professors/activities.jsp");
+                return;
+            }
         }
+        response.sendRedirect(request.getContextPath() + "/error.jsp");
     }
 
-    private void uploadToScribd(File file) {
+    private String[] uploadToScribd(File file) {
+        String retval[] = null;
         String scribd_api_key = "1jxl2rw3bydvz7rrhbbsr";
         String scribd_secret = "sec-se1l6r5sg9e5nn0ao0n6sib22";
         Scribd scribd = new Scribd(scribd_api_key, scribd_secret);
         String username = "gealgaro";
         String password = "123456789";
-        if(scribd.login(username, password)) {
+        if (scribd.login(username, password)) {
             String filename = file.getAbsolutePath();
             Hashtable data = scribd.upload(filename, null);
-            System.out.println(data.toString());
+            if (data != null) {
+                retval = new String[2];
+                retval[0] = data.get("doc_id").toString();
+                retval[1] = data.get("access_key").toString();
+            }
         }
+        return retval;
     }
 
     private File[] uploadAttachedFiles(HttpServletRequest request) {
-        File [] files = null;
+        File[] files = null;
         boolean isMultipart = ServletFileUpload.isMultipartContent(request);
         if (isMultipart) {
             FileItemFactory factory = new DiskFileItemFactory();
@@ -115,6 +121,17 @@ public class AddActivityServlet extends HttpServlet {
                 while (itr.hasNext()) {
                     FileItem item = (FileItem) itr.next();
                     if (item.isFormField()) {
+                        if (item.getFieldName().equals("subject_id")) {
+                            subject = item.getString();
+                        } else if (item.getFieldName().equals("name")) {
+                            name = item.getString();
+                        } else if (item.getFieldName().equals("description")) {
+                            description = item.getString();
+                        } else if (item.getFieldName().equals("type")) {
+                            type = item.getString();
+                        } else if (item.getFieldName().equals("link")) {
+                            link = item.getString();
+                        }
                     } else {
                         try {
                             String itemName = item.getName();
@@ -123,9 +140,8 @@ public class AddActivityServlet extends HttpServlet {
                             item.write(savedFile);
                             //out.println("<tr><td><b>Your file has been saved at the loaction:</b></td></tr><tr><td><b>" + config.getServletContext().getRealPath("/") + "uploadedFiles" + "\\" + itemName + "</td></tr>");
                             files[0] = savedFile;
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        } catch (Exception ex) {
+                            ex.printStackTrace(System.err);
                         }
                     }
                 }
@@ -136,8 +152,8 @@ public class AddActivityServlet extends HttpServlet {
         return files;
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code."> 
-    /** 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
      * Handles the HTTP <code>POST</code> method.
      * @param request servlet request
      * @param response servlet response
@@ -150,7 +166,7 @@ public class AddActivityServlet extends HttpServlet {
         processRequest(request, response);
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
      * @return a String containing servlet description
      */
