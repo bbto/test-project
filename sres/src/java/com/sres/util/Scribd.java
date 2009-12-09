@@ -1,4 +1,4 @@
-package scribdupload;
+package com.sres.util;
 
 import com.sres.util.ClientHttpRequest;
 import java.io.File;
@@ -260,7 +260,7 @@ public class Scribd {
                 post_params.put("api_sig", md5);
             }
         }
-        System.out.println(post_params.toString());
+        //System.out.println(post_params.toString());
 
         try {
             ClientHttpRequest request = new ClientHttpRequest(url);
@@ -295,7 +295,7 @@ public class Scribd {
                     Node node = nodes.item(index);
                     if (node.getNodeType() == Node.ELEMENT_NODE) {
                         result.put(node.getNodeName(), node.getTextContent());
-                        System.out.println("JODA: " + node.getNodeName() + " = " + node.getTextContent());
+                        //System.out.println("JODA: " + node.getNodeName() + " = " + node.getTextContent());
                     }
                 }
             }

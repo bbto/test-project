@@ -9,7 +9,7 @@
         <p class="byline">&nbsp;</p>
         <div class="entry">
             <table width="100%">
-                <form action="select_students.jsp" method="post" enctype="multipart/form-data">
+                <form action="addActivity" method="post" enctype="multipart/form-data">
                     <tr>
                         <td colspan="3">
                             <table width="100%">
@@ -28,19 +28,13 @@
                                             <input id="type0" type="radio" name="type" value="0" />
                                             <label for="type0">Link</label>&nbsp;&nbsp;&nbsp;
                                             <input id="type1" type="radio" name="type" value="1" />
-                                            <label for="type1">Video</label>&nbsp;&nbsp;&nbsp;
-                                            <input id="type2" type="radio" name="type" value="2" />
-                                            <label for="type2">Documento</label>
+                                            <label for="type1">Adjunto</label>&nbsp;&nbsp;&nbsp;
                                         </p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td><label for="link">Link</label></td>
                                     <td><input type="text" name="link" /></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="video">Video</label></td>
-                                    <td><input type="file" name="video" /></td>
                                 </tr>
                                 <tr>
                                     <td><label for="document">Documento</label></td>
