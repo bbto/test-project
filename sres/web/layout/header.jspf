@@ -8,54 +8,70 @@
         <title>SRES</title>
 
         <link href="/sres/stylesheets/default.css" rel="stylesheet" type="text/css" media="screen" />
-        <script type="text/javascript" src="/sres/javascripts/prototype.js"></script>
-        <script type="text/javascript" src="/sres/javascripts/scriptaculous.js"></script>
-        <script type="text/javascript" src="/sres/javascripts/clearbox.js"></script>
-    </head>
-    <body>
-        <!-- start header -->
-        <div id="header">
-            <div id="logo">
+        <script type="text/javascript" src="/sres/javascripts/prototype.js">
+        </script>
+        <script type="text/javascript" src="/sres/javascripts/effects.js">
+        </script>
+        <script type="text/javascript" src="/sres/javascripts/dragdrop.js">
+        </script>
+        <script type="text/javascript" src="/sres/javascripts/controls.js">
+        </script>
+        <script type="text/javascript" src="/sres/javascripts/application.js">
+        </script>
+        <script type="text/javascript" src="/sres/javascripts/clearbox.js">
+        </script>
+        <link href="/sres/javascripts/clearbox/config/default/cb_style.css" type="text/css" rel="stylesheet">
+        </link>
+        <script src="/sres/javascripts/clearbox/config/default/cb_config.js" type="text/javascript">
+        </script>
+        <script src="/sres/javascripts/clearbox/language/en/cb_language.js" type="text/javascript">
+        </script>
+        <script src="/sres/javascripts/clearbox/core/cb_core.js" type="text/javascript"></script>
+                </head>
+                <body>
+                <!-- start header -->
+                <div id="header">
+                <div id="logo">
                 <h1><a href="#"><span>CUC </span>SRES</a></h1>
                 <p>La red social de la cuc</p>
 
                 <div id="log_in">
-                    <jsp:scriptlet>if (current_user.isAdmin()) {</jsp:scriptlet>
+            <jsp:scriptlet>if (current_user.isAdmin()) {</jsp:scriptlet>
                     <span><b>Welcome:</b> <%=current_user.getName()%></span> <a href="/sres/logout">logout</a>
-                    <jsp:scriptlet>} else if (current_user.isProfessor()) {</jsp:scriptlet>
+            <jsp:scriptlet>} else if (current_user.isProfessor()) {</jsp:scriptlet>
                     <span><b>Welcome:</b> <a href="/sres/professor/profile.jsp"><%=current_user.getName()%></a></span>, <a href="/sres/logout">logout</a>
-                    <jsp:scriptlet>} else if (current_user.isStudent()) {</jsp:scriptlet>
+            <jsp:scriptlet>} else if (current_user.isStudent()) {</jsp:scriptlet>
                     <span><b>Welcome:</b> <a href="/sres/student/profile.jsp"><%=current_user.getName()%></a></span>, <a href="/sres/logout">logout</a>
-                    <jsp:scriptlet>}</jsp:scriptlet>
-                </div>
-            </div>
-        </div>
-        <!-- end header -->
-        <div id="wrapper">
-            <!-- start page -->
-            <div id="page">
-                <div id="page-bg">
+            <jsp:scriptlet>}</jsp:scriptlet>
+                    </div>
+                    </div>
+                    </div>
+                    <!-- end header -->
+                    <div id="wrapper">
+                    <!-- start page -->
+                    <div id="page">
+                    <div id="page-bg">
                     <div id="sidebar1" class="sidebar">
-                        <ul>
-                            <li>
-                                <h2>Menu</h2>
-                                <jsp:scriptlet>if (current_user.isAdmin()) {</jsp:scriptlet>
-                                <ul>
-                                    <li><a href="index.jsp">Competencias</a></li>
-                                    <li><a href="professors.jsp">Profesores</a></li>
-                                    <li><a href="students.jsp">Estudiantes</a></li>
-                                </ul>
-                                <jsp:scriptlet>} else if (current_user.isProfessor()) {</jsp:scriptlet>
-                                <ul>
-                                    <li><a href="index.jsp">Inicio</a></li>
-                                    <li><a href="subjects.jsp">Redes</a></li>
-                                    <li><a href="bulletin.jsp">Crear boletin</a></li>
-                                </ul>
-                                <jsp:scriptlet>} else if (current_user.isStudent()) {</jsp:scriptlet>
-                                <ul>
-                                    <li><a href="index.jsp">Actividades</a></li>
-                                </ul>        
-                                <jsp:scriptlet>}</jsp:scriptlet>
-                            </li>
-                        </ul>
+                    <ul>
+                    <li>
+                    <h2>Menu</h2>
+            <jsp:scriptlet>if (current_user.isAdmin()) {</jsp:scriptlet>
+                    <ul>
+                    <li><a href="index.jsp">Competencias</a></li>
+                    <li><a href="professors.jsp">Profesores</a></li>
+                    <li><a href="students.jsp">Estudiantes</a></li>
+                    </ul>
+            <jsp:scriptlet>} else if (current_user.isProfessor()) {</jsp:scriptlet>
+                    <ul>
+                    <li><a href="index.jsp">Inicio</a></li>
+                    <li><a href="subjects.jsp">Redes</a></li>
+                    <li><a href="bulletin.jsp">Crear boletin</a></li>
+                    </ul>
+            <jsp:scriptlet>} else if (current_user.isStudent()) {</jsp:scriptlet>
+                    <ul>
+                    <li><a href="index.jsp">Actividades</a></li>
+                    </ul>
+            <jsp:scriptlet>}</jsp:scriptlet>
+                    </li>
+                    </ul>
                     </div>

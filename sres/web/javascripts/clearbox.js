@@ -9,14 +9,14 @@
 	MSN:			pyro(at)radiomax(dot)hu
 	support forum 1:	http://www.sg.hu/listazas.php3?id=1172325655
 
-	LICENSZ FELTÉTELEK:
+	LICENSZ FELTï¿½TELEK:
 
-	A clearbox szabadon felhasználható bármilyen nem kereskedelmi jellegû honlapon, 
-	tehát azokon amelyek nem kereskedelmi tevékenységet folytató cégek, vállalatok 
-	oldalai; nem tartalmaznak kereskedelmi jellegû szolgáltatást vagy termék(ek) 
-	eladás(á)t, illetve reklámozás(á)t. A kereskedelmi jellegû honlapokon való 
-	felhasználásáról érdeklõdj a készítõnél! A clearbox forráskódja nem módosítható. 
-	A clearbox a készítõ beleegyezése nélkül pénzért harmadik félnek tovább nem adható!
+	A clearbox szabadon felhasznï¿½lhatï¿½ bï¿½rmilyen nem kereskedelmi jellegï¿½ honlapon, 
+	tehï¿½t azokon amelyek nem kereskedelmi tevï¿½kenysï¿½get folytatï¿½ cï¿½gek, vï¿½llalatok 
+	oldalai; nem tartalmaznak kereskedelmi jellegï¿½ szolgï¿½ltatï¿½st vagy termï¿½k(ek) 
+	eladï¿½s(ï¿½)t, illetve reklï¿½mozï¿½s(ï¿½)t. A kereskedelmi jellegï¿½ honlapokon valï¿½ 
+	felhasznï¿½lï¿½sï¿½rï¿½l ï¿½rdeklï¿½dj a kï¿½szï¿½tï¿½nï¿½l! A clearbox forrï¿½skï¿½dja nem mï¿½dosï¿½thatï¿½. 
+	A clearbox a kï¿½szï¿½tï¿½ beleegyezï¿½se nï¿½lkï¿½l pï¿½nzï¿½rt harmadik fï¿½lnek tovï¿½bb nem adhatï¿½!
 
 	LICENSE:
 
@@ -27,7 +27,7 @@
 
 
 
-var	CB_ScriptDir='/javascripts/clearbox';
+var	CB_ScriptDir='/sres/javascripts/clearbox';
 var	CB_Language='en';
 
 
