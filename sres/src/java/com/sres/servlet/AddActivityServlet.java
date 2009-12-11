@@ -67,7 +67,7 @@ public class AddActivityServlet extends HttpServlet {
                     activity.setScrib_key(params[1]);
                     if (activity.save()) {
                         request.setAttribute("id", subject);
-                        RequestDispatcher dispatcher = request.getRequestDispatcher("activities.jsp");
+                        RequestDispatcher dispatcher = request.getRequestDispatcher(request.getContextPath() + "/professors/activities.jsp");
                         dispatcher.forward(request, response);
                         //response.sendRedirect(request.getContextPath() + "/professors/activities.jsp");
                         return;
@@ -78,7 +78,7 @@ public class AddActivityServlet extends HttpServlet {
             activity.setLink(link);
             if (activity.save()) {
                 request.setAttribute("id", subject);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("activities.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher(request.getContextPath() + "/professors/activities.jsp");
                 dispatcher.forward(request, response);
                 //response.sendRedirect(request.getContextPath() + "/professors/activities.jsp");
                 return;

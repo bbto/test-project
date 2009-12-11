@@ -203,6 +203,7 @@ public class Activity {
      * @return the link
      */
     public String getLink() {
+        if(link == null) return "";
         return link;
     }
 
@@ -231,6 +232,7 @@ public class Activity {
      * @return the scrib_key
      */
     public String getScrib_key() {
+        if(scrib_key == null) return "";
         return scrib_key;
     }
 
@@ -245,6 +247,7 @@ public class Activity {
      * @return the name
      */
     public String getName() {
+        if(name == null) return "";
         return name;
     }
 
@@ -259,6 +262,7 @@ public class Activity {
      * @return the name
      */
     public String getDescription() {
+        if(description == null) return "";
         return description;
     }
 
