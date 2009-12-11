@@ -37,7 +37,7 @@
                             scribd_doc.write( 'embedded_flash' );
                         </script>
                         <% } else {%>
-                        <a class="aaa" href="http://www.youtube.com/v/2Zps6dqnu5E" rel="clearbox[width=700,height=490]">Ver Enlance</a>
+                        <a class="aaa" href="<%= activity.getLink() %>" rel="clearbox[width=700,height=490]">Ver Enlance</a>
                         <% }%>
                     </td>
                 </tr>

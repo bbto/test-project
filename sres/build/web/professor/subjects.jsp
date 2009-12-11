@@ -13,7 +13,7 @@
                         <td colspan="3">
                             <jsp:include page="competitions_select.jsp"></jsp:include>
                         </td>
-                        <td><input type="submit" name="submit" value="Agregar" /></td>
+                        <td><input type="submit" name="submit" value="Agregar" onclick="if($('competition').value=='') return false;" /></td>
                     </tr>
                 </form>
                 <tr>

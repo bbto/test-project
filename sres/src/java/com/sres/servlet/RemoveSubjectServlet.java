@@ -1,6 +1,6 @@
 package com.sres.servlet;
 
-import com.sres.model.Competition;
+import com.sres.model.Subject;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author bbto
  */
-public class RemoveCompetitionServlet extends HttpServlet {
+public class RemoveSubjectServlet extends HttpServlet {
 
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -25,14 +25,12 @@ public class RemoveCompetitionServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String id = request.getParameter("id");
 
-        Competition c = Competition.find_by_id(id);
-        System.err.println(c.getName());
+        Subject c = Subject.find_by_id(id);
         if (c.destroy()) {
-            response.sendRedirect(request.getContextPath() + "/admin/");
+            response.sendRedirect(request.getContextPath() + "/professor/");
         } else {
             response.sendRedirect(request.getContextPath() + "/error.jsp");
         }
-       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -11,11 +11,12 @@ import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.JspFactory;
+import javax.servlet.jsp.PageContext;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
@@ -67,8 +68,10 @@ public class AddActivityServlet extends HttpServlet {
                     activity.setScrib_key(params[1]);
                     if (activity.save()) {
                         request.setAttribute("id", subject);
-                        RequestDispatcher dispatcher = request.getRequestDispatcher(request.getContextPath() + "/professors/activities.jsp");
-                        dispatcher.forward(request, response);
+                        JspFactory _jspxFactory = JspFactory.getDefaultFactory();
+                        PageContext pageContext = _jspxFactory.getPageContext(this, request, response,
+                                null, true, 16384, true);
+                        pageContext.forward("/professor/activities.jsp");
                         //response.sendRedirect(request.getContextPath() + "/professors/activities.jsp");
                         return;
                     }
@@ -78,8 +81,10 @@ public class AddActivityServlet extends HttpServlet {
             activity.setLink(link);
             if (activity.save()) {
                 request.setAttribute("id", subject);
-                RequestDispatcher dispatcher = request.getRequestDispatcher(request.getContextPath() + "/professors/activities.jsp");
-                dispatcher.forward(request, response);
+                JspFactory _jspxFactory = JspFactory.getDefaultFactory();
+                PageContext pageContext = _jspxFactory.getPageContext(this, request, response,
+      			null, true, 16384, true);
+                pageContext.forward("/professor/activities.jsp");
                 //response.sendRedirect(request.getContextPath() + "/professors/activities.jsp");
                 return;
             }

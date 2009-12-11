@@ -1,6 +1,7 @@
 <%@include file="../layout/header.jspf" %>
 <%@ page import="java.util.ArrayList, com.sres.model.Subject, com.sres.model.Activity" %>
 <jsp:scriptlet> String id = request.getParameter("id");</jsp:scriptlet>
+<jsp:scriptlet> if(id==null) id = (String)request.getAttribute("id");</jsp:scriptlet>
 <jsp:scriptlet> Subject subject = Subject.find_by_id(id);</jsp:scriptlet>
 <!-- start content -->
 <div id="content">
