@@ -139,4 +139,24 @@
         <env-entry-type>java.lang.String</env-entry-type>
         <env-entry-value>default</env-entry-value>
     </env-entry>
-</web-app>
+    <env-entry>
+        <env-entry-name>scribd_api_key</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>1jxl2rw3bydvz7rrhbbsr</env-entry-value>
+    </env-entry>
+    <env-entry>
+        <env-entry-name>scribd_secret</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>sec-se1l6r5sg9e5nn0ao0n6sib22</env-entry-value>
+    </env-entry>
+    <env-entry>
+        <env-entry-name>scribd_username</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>gealgaro</env-entry-value>
+    </env-entry>
+    <env-entry>
+        <env-entry-name>scribd_password</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>123456789</env-entry-value>
+    </env-entry>
+    </web-app>
