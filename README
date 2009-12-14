@@ -1,0 +1,10 @@
+carpetas
+ -articulo -> donde esta el artculo de investigación
+ -capitulo -> Capítulo del libro
+ -Database diagram -> Diagrama de base de datos + archivos SQL para iniciar la aplicación
+ -design -> hojas de estilos css y diseño 
+ -monografia -> monografía de la investigación
+ -sres -> proyecto de netbeans con el aplicativo
+ -sresModel -> proyecto de netbeans con los archivos necesarios para el proyecto UML
+ -UML -> algunos diagramas utilizados para el articulo
+ 

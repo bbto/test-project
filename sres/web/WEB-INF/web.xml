@@ -70,6 +70,10 @@
         <servlet-name>AddActivityServlet</servlet-name>
         <servlet-class>com.sres.servlet.AddActivityServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddBulletinServlet</servlet-name>
+        <servlet-class>com.sres.servlet.AddBulletinServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AuthServlet</servlet-name>
         <url-pattern>/auth</url-pattern>
@@ -105,6 +109,10 @@
     <servlet-mapping>
         <servlet-name>AddActivityServlet</servlet-name>
         <url-pattern>/professor/addActivity</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddBulletinServlet</servlet-name>
+        <url-pattern>/professor/AddBulletin</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -27,6 +27,9 @@
         <script src="/sres/javascripts/clearbox/language/en/cb_language.js" type="text/javascript">
         </script>
         <script src="/sres/javascripts/clearbox/core/cb_core.js" type="text/javascript"></script>
+        <script type="text/javascript" src="/sres/javascripts/tiny_mce/tiny_mce.js"></script>
+        <script type="text/javascript" src="/sres/javascripts/calendar_date_select/calendar_date_select.js"></script>
+        <link type="text/css" rel="stylesheet" media="screen" href="/sres/stylesheets/calendar_date_select/silver.css" />
                 </head>
                 <body>
                 <!-- start header -->
