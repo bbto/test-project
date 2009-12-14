@@ -20,7 +20,18 @@
                         <% ArrayList<Activity> activities = subject.getActivities();
                             for (Activity act : activities) {
                         %>
-                        <li><%=act.getName()%></li>
+                        <li>
+                            <%=act.getName()%>
+                            <% if(!current_user.submitted_activity_answer(act.getId()+"")) { %>
+                            <form action="submit_answer.jsp" method="post">
+                                <input type="hidden" name="id" value="<%=act.getId()%>" />
+                                <input type="hidden" name="student_id" value="<%=current_user.getStudentSubjectId(act.getId()+"")%>" />
+                                <input type="submit" value="Enviar respuesta" />
+                            </form>
+                            <% } else { %>
+                            <p><i>Respuesta enviada!</i></p>
+                            <% } %>
+                        </li>
 
                         <%
                             }

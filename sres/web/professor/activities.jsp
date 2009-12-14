@@ -13,7 +13,7 @@
                 <form action="addActivity" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="subject_id" value="<%=subject.getId()%>" />
                     <tr>
-                        <td colspan="3">
+                        <td colspan="4">
                             <table width="100%">
                                 <tr>
                                     <td><label for="name">Nombre </label></td>
@@ -52,7 +52,7 @@
                 <tr>
                     <th>Nombre</th>
                     <th>Descripcion</th>
-                    <th>Accion</th>
+                    <th colspan="2" align="center" width="10%">Accion</th>
                 </tr>
                 <%
             ArrayList<Activity> activities = subject.getActivities();
@@ -66,6 +66,12 @@
                         <form action="activity.jsp" method="post">
                             <input type="hidden" name="id" value="<%=activity.getId()%>" />
                             <input type="submit" name="submit" value="Ver" />
+                        </form>
+                    </td>
+                    <td>
+                        <form action="answers.jsp" method="post">
+                            <input type="hidden" name="id" value="<%=activity.getId()%>" />
+                            <input type="submit" name="submit" value="Respuestas" />
                         </form>
                     </td>
                 </tr>

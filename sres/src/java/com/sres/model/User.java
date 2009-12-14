@@ -40,7 +40,7 @@ public class User {
         return id;
     }
 
-    private void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -116,13 +116,13 @@ public class User {
         return role == STUDENT;
     }
 
-    public ArrayList<StudentSubject> getCompetitions(){
+    public ArrayList<StudentSubject> getCompetitions() {
         ArrayList<StudentSubject> competitions = new ArrayList<StudentSubject>();
-         StudentSubject student_subject = null;
-         DatabaseManager db = DatabaseManager.getInstance();
+        StudentSubject student_subject = null;
+        DatabaseManager db = DatabaseManager.getInstance();
         if (db != null) {
             try {
-                ResultSet rs = db.getQuery("SELECT * FROM student_subjects Where final_grade>=3.0 and student_id="+id);
+                ResultSet rs = db.getQuery("SELECT * FROM student_subjects Where final_grade>=3.0 and student_id=" + id);
                 while (rs.next()) {
                     student_subject = new StudentSubject(false);
                     student_subject.setId(rs.getInt("id"));
@@ -140,13 +140,92 @@ public class User {
         return competitions;
     }
 
-    public ArrayList<Subject> getProfessorSubjects(){
+    public String getGrades(String subject_id) {
+        String grades = null;
+        DatabaseManager db = DatabaseManager.getInstance();
+        if (db != null) {
+            try {
+                ResultSet rs = db.getQuery("SELECT r.* FROM rates r, student_subjects s WHERE s.student_id="+id+" AND s.subject_id="+subject_id+" AND r.student_subject_id=s.id");
+                while (rs.next()) {
+                    if(grades==null) grades="";
+                    grades = grades + ", " + rs.getString("cuantification");
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+
+        }
+        db.close();
+        return grades==null ? "N/A" : grades.substring(2);
+    }
+
+    public String getAvgGrade(String subject_id) {
+        String grade = null;
+        DatabaseManager db = DatabaseManager.getInstance();
+        if (db != null) {
+            try {
+                double sum = 0, count = 0;
+                ResultSet rs = db.getQuery("SELECT r.* FROM rates r, student_subjects s WHERE s.student_id="+id+" AND s.subject_id="+subject_id+" AND r.student_subject_id=s.id");
+                while (rs.next()) {
+                    sum += rs.getDouble("cuantification");
+                    count += 1;
+                }
+                if(count>0) {
+                    sum = sum / count;
+                    grade = sum+"";
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+
+        }
+        db.close();
+        return grade==null ? "N/A" : grade.substring(2);
+    }
+
+    public boolean submitted_activity_answer(String activity_id) {
+        boolean submitted = false;
+        DatabaseManager db = DatabaseManager.getInstance();
+        if (db != null) {
+            try {
+                ResultSet rs = db.getQuery("SELECT s.* FROM rates r, student_subjects s WHERE r.activity_id="+activity_id+" AND s.id=r.student_subject_id AND s.student_id="+id);
+                if (rs.next()) {
+                    submitted = true;
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+
+        }
+        db.close();
+        return submitted;
+    }
+
+    public String getStudentSubjectId(String activity_id) {
+        String ss_id = null;
+        DatabaseManager db = DatabaseManager.getInstance();
+        if (db != null) {
+            try {
+                ResultSet rs = db.getQuery("SELECT s.id FROM student_subjects s, activities a WHERE a.id="+activity_id+" AND a.subject_id=s.subject_id AND s.student_id="+id);
+                if (rs.next()) {
+                    ss_id = rs.getString("id");
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+
+        }
+        db.close();
+        return ss_id;
+    }
+
+    public ArrayList<Subject> getProfessorSubjects() {
         ArrayList<Subject> subjects = new ArrayList<Subject>();
         Subject subject = null;
         DatabaseManager db = DatabaseManager.getInstance();
         if (db != null) {
             try {
-                ResultSet rs = db.getQuery("SELECT * FROM subjects Where professor_id="+id);
+                ResultSet rs = db.getQuery("SELECT * FROM subjects Where professor_id=" + id);
                 while (rs.next()) {
                     subject = new Subject(false);
                     subject.setId(rs.getInt("id"));
@@ -164,13 +243,13 @@ public class User {
         return subjects;
     }
 
-    public ArrayList<StudentSubject> getCompetitionsOnCourse(){
+    public ArrayList<StudentSubject> getCompetitionsOnCourse() {
         ArrayList<StudentSubject> competitions = new ArrayList<StudentSubject>();
-         StudentSubject student_subject = null;
-         DatabaseManager db = DatabaseManager.getInstance();
+        StudentSubject student_subject = null;
+        DatabaseManager db = DatabaseManager.getInstance();
         if (db != null) {
             try {
-                ResultSet rs = db.getQuery("SELECT * FROM student_subjects Where final_grade=0.0 and student_id="+id);
+                ResultSet rs = db.getQuery("SELECT * FROM student_subjects Where final_grade=0.0 and student_id=" + id);
                 while (rs.next()) {
                     student_subject = new StudentSubject(false);
                     student_subject.setId(rs.getInt("id"));
@@ -186,6 +265,24 @@ public class User {
         }
         db.close();
         return competitions;
+    }
+
+    public boolean newAnswers() {
+        boolean exist = false;
+        DatabaseManager db = DatabaseManager.getInstance();
+        if (db != null) {
+            try {
+                ResultSet rs = db.getQuery("SELECT r.* FROM rates r, subjects s, activities a  WHERE r.cuantification=0 AND r.activity_id=a.id AND a.subject_id=s.id AND s.professor_id=" + id);
+                if (rs.next()) {
+                    exist = true;
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+
+        }
+        db.close();
+        return exist;
     }
 
     public static String getPassword(User user) {
@@ -276,6 +373,29 @@ public class User {
         return users;
     }
 
+    public static User find_by_student_subject_id(String id) {
+        User user = null;
+        DatabaseManager db = DatabaseManager.getInstance();
+        if (db != null) {
+            try {
+                ResultSet rs = db.getQuery("SELECT u.* FROM users u, student_subjects s WHERE u.id=s.student_id AND s.id=" + id);
+                if (rs.next()) {
+                    user = new User(false);
+                    user.setId(rs.getInt("id"));
+                    user.setEmail(rs.getString("email"));
+                    user.setFirstname(rs.getString("firstname"));
+                    user.setLastname(rs.getString("lastname"));
+                    user.setRole(rs.getInt("role"));
+                    user.newRecord = false;
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+        db.close();
+        return user;
+    }
+
     public static User find_by_id(String id) {
         User user = null;
         DatabaseManager db = DatabaseManager.getInstance();
@@ -322,7 +442,7 @@ public class User {
         return user;
     }
 
-    public  ArrayList<StudentSubject> getStudentsSubjects() {
+    public ArrayList<StudentSubject> getStudentsSubjects() {
         ArrayList<StudentSubject> ss = new ArrayList<StudentSubject>();
         DatabaseManager db = DatabaseManager.getInstance();
         if (db != null) {

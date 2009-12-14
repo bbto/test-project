@@ -6,6 +6,11 @@
         <h1 class="title"><a>Redes</a></h1>
         <p class="byline">&nbsp;</p>
         <div class="entry">
+            <% if(current_user.newAnswers()) { %>
+            <div style="text-align: center;">
+                <h3>Hay respuestas de estudiantes, sin revisar! Vea las actividades para mas detalles!</h3>
+            </div>
+            <% } %>
             <table width="100%">
                 <form action="select_students.jsp" method="post">
                     <tr>
@@ -22,12 +27,12 @@
                     <th align="center" colspan="3">Accion</th>
                 </tr>
                 <%
-                    ArrayList<Subject> subjects = Subject.all();
-                    for(int i=0; i<subjects.size(); i++) {
-                        Subject subject = subjects.get(i);
+            ArrayList<Subject> subjects = Subject.all();
+            for (int i = 0; i < subjects.size(); i++) {
+                Subject subject = subjects.get(i);
                 %>
                 <tr>
-                    <td><%=Competition.find_by_id(""+subject.getCompetence_id()).getName()%></td>
+                    <td><%=Competition.find_by_id("" + subject.getCompetence_id()).getName()%></td>
                     <td><%=subject.getCreation_date()%></td>
                     <td>
                         <form action="activities.jsp" method="post">

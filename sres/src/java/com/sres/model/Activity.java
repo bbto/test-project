@@ -89,6 +89,36 @@ public class Activity {
         return result;
     }
 
+    public ArrayList<Rates> getRates() {
+        ArrayList<Rates> result = new ArrayList<Rates>();
+        DatabaseManager db = DatabaseManager.getInstance();
+        Rates rate = null;
+        if (db != null) {
+            try {
+                ResultSet rs = db.getQuery("SELECT * FROM rates WHERE activity_id="+id);
+                while (rs.next()) {
+                    rate = new Rates(false);
+                    rate.setId(rs.getInt("id"));
+                    rate.setStudent_subject_id(rs.getInt("student_subject_id"));
+                    rate.setCuantification(rs.getDouble("cuantification"));
+                    rate.setQualification(rs.getString("qualification"));
+                    rate.setActivity_id(rs.getInt("activity_id"));
+                    rate.setAnswer(rs.getString("answer"));
+                    rate.setType(rs.getInt("type"));
+                    rate.setLink(rs.getString("link"));
+                    rate.setScribd_id(rs.getInt("scribd_id"));
+                    rate.setScribd_key(rs.getString("scribd_key"));
+                    result.add(rate);
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+        db.close();
+
+        return result;
+    }
+
     public boolean save() {
         DatabaseManager db = DatabaseManager.getInstance();
         if (db != null) {

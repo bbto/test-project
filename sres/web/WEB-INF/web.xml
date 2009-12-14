@@ -74,6 +74,14 @@
         <servlet-name>RemoveSubjectServlet</servlet-name>
         <servlet-class>com.sres.servlet.RemoveSubjectServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddAnswerServlet</servlet-name>
+        <servlet-class>com.sres.servlet.AddAnswerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddRateServlet</servlet-name>
+        <servlet-class>com.sres.servlet.AddRateServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AuthServlet</servlet-name>
         <url-pattern>/auth</url-pattern>
@@ -113,6 +121,14 @@
     <servlet-mapping>
         <servlet-name>RemoveSubjectServlet</servlet-name>
         <url-pattern>/professor/removeSubject</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddAnswerServlet</servlet-name>
+        <url-pattern>/student/addAnswer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddRateServlet</servlet-name>
+        <url-pattern>/professor/addRate</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
