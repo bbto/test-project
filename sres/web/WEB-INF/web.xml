@@ -49,7 +49,8 @@
     <servlet>
         <servlet-name>AddProfessor</servlet-name>
         <servlet-class>com.sres.servlet.AddProfessor</servlet-class>
-    </servlet>
+    </servlet>fatal: Entry 'sres/web/WEB-INF/web.xml' not uptodate. Cannot merge.
+
     <servlet>
         <servlet-name>AddSubjectServlet</servlet-name>
         <servlet-class>com.sres.servlet.AddSubjectServlet</servlet-class>
@@ -73,6 +74,18 @@
     <servlet>
         <servlet-name>AddBulletinServlet</servlet-name>
         <servlet-class>com.sres.servlet.AddBulletinServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RemoveSubjectServlet</servlet-name>
+        <servlet-class>com.sres.servlet.RemoveSubjectServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddAnswerServlet</servlet-name>
+        <servlet-class>com.sres.servlet.AddAnswerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddRateServlet</servlet-name>
+        <servlet-class>com.sres.servlet.AddRateServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AuthServlet</servlet-name>
@@ -114,6 +127,18 @@
         <servlet-name>AddBulletinServlet</servlet-name>
         <url-pattern>/professor/AddBulletin</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveSubjectServlet</servlet-name>
+        <url-pattern>/professor/removeSubject</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddAnswerServlet</servlet-name>
+        <url-pattern>/student/addAnswer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddRateServlet</servlet-name>
+        <url-pattern>/professor/addRate</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -122,7 +147,8 @@
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
         <welcome-file>index.jsp</welcome-file>
-    </welcome-file-list>
+        <welcome-file>subjects.jsp</welcome-file>
+        </welcome-file-list>
     <error-page><error-code>404</error-code><location>/error.jsp</location></error-page><env-entry>
         <description>MySQL JDBC Driver</description>
         <env-entry-name>driver</env-entry-name>

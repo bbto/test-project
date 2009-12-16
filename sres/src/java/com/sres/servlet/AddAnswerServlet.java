@@ -2,9 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.sres.servlet;
 
-import com.sres.model.Activity;
+import com.sres.model.Rates;
 import com.sres.util.Scribd;
 import java.io.File;
 import java.io.IOException;
@@ -15,8 +16,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.JspFactory;
-import javax.servlet.jsp.PageContext;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
@@ -27,15 +26,15 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  *
  * @author Chiquitica
  */
-public class AddActivityServlet extends HttpServlet {
+public class AddAnswerServlet extends HttpServlet {
 
-    private String subject;
-    private String name;
-    private String description;
+    private String activity;
+    private String student_subject;
+    private String answer;
     private String type;
     private String link;
-
-    /**
+    
+    /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
@@ -43,54 +42,45 @@ public class AddActivityServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+    throws ServletException, IOException {
+                response.setContentType("text/html;charset=UTF-8");
 
+        System.out.println("NOJODA ECHE");
         File[] files = uploadAttachedFiles(request);
 
-        System.out.println(subject);
-        System.out.println(name);
-        System.out.println(description);
+        System.out.println(activity);
+        System.out.println(student_subject);
+        System.out.println(answer);
         System.out.println(type);
         System.out.println(link);
 
-        Activity activity = new Activity(true);
-        activity.setSubject_id(Integer.parseInt(subject));
-        activity.setName(name);
-        activity.setDescription(description);
-        activity.setType(Integer.parseInt(type));
+        Rates rate = new Rates(true);
+        rate.setActivity_id(Integer.parseInt(activity));
+        rate.setStudent_subject_id(Integer.parseInt(student_subject));
+        rate.setAnswer(answer);
+        rate.setType(Integer.parseInt(type));
 
         if (type.equals("1")) {
             if (files != null) {
                 String params[] = uploadToScribd(files[0]);
                 if (params != null) {
-                    activity.setScrib_id(Integer.parseInt(params[0]));
-                    activity.setScrib_key(params[1]);
-                    if (activity.save()) {
-                        request.setAttribute("id", subject);
-                        JspFactory _jspxFactory = JspFactory.getDefaultFactory();
-                        PageContext pageContext = _jspxFactory.getPageContext(this, request, response,
-                                null, true, 16384, true);
-                        pageContext.forward("/professor/activities.jsp");
-                        //response.sendRedirect(request.getContextPath() + "/professors/activities.jsp");
+                    rate.setScribd_id(Integer.parseInt(params[0]));
+                    rate.setScribd_key(params[1]);
+                    if (rate.save()) {
+                        response.sendRedirect(request.getContextPath() + "/student/index.jsp");
                         return;
                     }
                 }
             }
         } else {
-            activity.setLink(link);
-            if (activity.save()) {
-                request.setAttribute("id", subject);
-                JspFactory _jspxFactory = JspFactory.getDefaultFactory();
-                PageContext pageContext = _jspxFactory.getPageContext(this, request, response,
-      			null, true, 16384, true);
-                pageContext.forward("/professor/activities.jsp");
-                //response.sendRedirect(request.getContextPath() + "/professors/activities.jsp");
+            rate.setLink(link);
+            if (rate.save()) {
+                response.sendRedirect(request.getContextPath() + "/student/index.jsp");
                 return;
             }
         }
         response.sendRedirect(request.getContextPath() + "/error.jsp");
-    }
+    } 
 
     private String[] uploadToScribd(File file) {
         String retval[] = null;
@@ -126,12 +116,12 @@ public class AddActivityServlet extends HttpServlet {
                 while (itr.hasNext()) {
                     FileItem item = (FileItem) itr.next();
                     if (item.isFormField()) {
-                        if (item.getFieldName().equals("subject_id")) {
-                            subject = item.getString();
-                        } else if (item.getFieldName().equals("name")) {
-                            name = item.getString();
-                        } else if (item.getFieldName().equals("description")) {
-                            description = item.getString();
+                        if (item.getFieldName().equals("activity_id")) {
+                            activity = item.getString();
+                        } else if (item.getFieldName().equals("student_subject_id")) {
+                            student_subject = item.getString();
+                        } else if (item.getFieldName().equals("answer")) {
+                            answer = item.getString();
                         } else if (item.getFieldName().equals("type")) {
                             type = item.getString();
                         } else if (item.getFieldName().equals("link")) {
@@ -158,7 +148,7 @@ public class AddActivityServlet extends HttpServlet {
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+    /** 
      * Handles the HTTP <code>POST</code> method.
      * @param request servlet request
      * @param response servlet response
@@ -167,11 +157,11 @@ public class AddActivityServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
+    /** 
      * Returns a short description of the servlet.
      * @return a String containing servlet description
      */
@@ -179,4 +169,5 @@ public class AddActivityServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

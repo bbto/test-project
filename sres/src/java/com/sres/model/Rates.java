@@ -105,11 +105,12 @@ public class Rates {
                     fields.add(String.valueOf(cuantification));
                     fields.add(Util.quote(qualification));
                     fields.add(String.valueOf(activity_id));
+                    fields.add(Util.quote(answer));
                     fields.add(String.valueOf(type));
                     fields.add(Util.quote(link));
                     fields.add(String.valueOf(scribd_id));
                     fields.add(Util.quote(scribd_key));
-                    if (db.insert("rates", "(student_subject_id,cuantification,qualification,activity_id,type,link,scribd_id,scribd_key)", "(" + Util.concat(fields, ",") + ")")) {
+                    if (db.insert("rates", "(student_subject_id,cuantification,qualification,activity_id,answer,type,link,scribd_id,scribd_key)", "(" + Util.concat(fields, ",") + ")")) {
                         return true;
                     }
                 } else {

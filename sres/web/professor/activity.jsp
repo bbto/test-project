@@ -33,11 +33,15 @@
                                 // scribd_doc.api.setPage(3);
                             }
                             scribd_doc.addParam( 'jsapi_version', 1 );
+                            scribd_doc.addParam('height', 400);
+                            //scribd_doc.addParam('width', 480);
+                            scribd_doc.addParam('mode', 'slide');
+                            scribd_doc.addParam('disable_related_docs', true);
                             scribd_doc.addEventListener( 'iPaperReady', oniPaperReady );
                             scribd_doc.write( 'embedded_flash' );
                         </script>
                         <% } else {%>
-                        <a class="aaa" href="http://www.youtube.com/v/2Zps6dqnu5E" rel="clearbox[width=700,height=490]">Ver Enlance</a>
+                        <a class="aaa" href="<%= activity.getLink()%>" rel="clearbox[width=700,height=490]">Ver Enlance</a>
                         <% }%>
                     </td>
                 </tr>

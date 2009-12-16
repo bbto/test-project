@@ -50,10 +50,7 @@ public class Subject {
         return subject;
     }
 
-    
-
     public ArrayList<Activity> getActivities() {
-
         ArrayList<Activity> result = new ArrayList<Activity>();
         DatabaseManager db = DatabaseManager.getInstance();
         Activity activity = null;
@@ -70,6 +67,30 @@ public class Subject {
                     activity.setScrib_key(rs.getString("scribd_key"));
                     activity.setName(rs.getString("name"));
                     result.add(activity);
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.err);
+            }
+        }
+        db.close();
+        return result;
+    }
+
+    public ArrayList<User> getStudents() {
+        ArrayList<User> result = new ArrayList<User>();
+        DatabaseManager db = DatabaseManager.getInstance();
+        User user = null;
+        if (db != null) {
+            try {
+                ResultSet rs = db.getQuery("SELECT u.* FROM users u, student_subjects s WHERE  u.id=s.student_id AND s.subject_id=" + id);
+                while (rs.next()) {
+                    user = new User(false);
+                    user.setId(rs.getInt("id"));
+                    user.setEmail(rs.getString("email"));
+                    user.setFirstname(rs.getString("firstname"));
+                    user.setLastname(rs.getString("lastname"));
+                    user.setRole(rs.getInt("role"));
+                    result.add(user);
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace(System.err);
